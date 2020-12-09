@@ -4,10 +4,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe/recipeSearch.dart';
 import './groceryList.dart';
+import './favoriteView.dart';
 
 void main () {
   
+  runApp(MyApp());
 }
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MainView(),
+    );
+  }
+  }
 
 class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -28,6 +40,7 @@ class MainView extends StatelessWidget {
                RaisedButton(
                 child: Text ('Mina favoriter'), 
                 onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => FavoriteView()));
                   
                 }
               ),

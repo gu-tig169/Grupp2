@@ -7,16 +7,30 @@ class GroceryList extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-      ),
+        actions: [
+          PopupMenuButton(
+            onSelected: (value) {
+            //  Provider.of<MyState>(context, listen: false).setFilter(value);
+            },
+            itemBuilder: (context) => [
+                    PopupMenuItem(child: Text('Visa alla'), value: 'Visa alla'),
+                    PopupMenuItem(child: Text('Klar'), value: 'Klar'),
+                    PopupMenuItem(child: Text('Inte klar'), value: 'Inte klar'),
+                    ]),
+            ]
+          ),
+      
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
+        
           children: [
             Container(),
             _addGroceryInputField(),
             _addButton(),
           ],
+
         )
       )
       );
@@ -46,4 +60,14 @@ class GroceryList extends StatelessWidget {
       ),
     );
   }
+
+List<GroceryList> setFilter(list, filterList) {
+  if (filterList == 'Klar') {
+    return list.where((item) => item.done == true).toList();
+  } else if (filterList == 'Inte klar') {
+    return list.where((item) => item.done == false).toList();
+  }
+  return list;
+
+}
 }

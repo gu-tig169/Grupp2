@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './model.dart';
 
 class RecipeSearch extends StatelessWidget {
-  
+
   String title;
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +29,6 @@ class RecipeSearch extends StatelessWidget {
 
  Widget _textInputField() {
     return Container(
-      margin: EdgeInsets.only(left: 16, right: 16),
       child: TextField(
         decoration: InputDecoration(
           hintText: 'Sök efter recept...',
@@ -43,7 +42,6 @@ class RecipeSearch extends StatelessWidget {
 }
  Widget _searchButton() {
     return Container(
-      margin: EdgeInsets.only(left: 16, right: 16),
       child: RaisedButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         textColor: Colors.black,
