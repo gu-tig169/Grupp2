@@ -10,6 +10,7 @@ class FavoriteList extends StatefulWidget {
   @override
   _FavoriteListState createState() => _FavoriteListState();
 }
+
 class _FavoriteListState extends State<FavoriteList> {
   Widget build(BuildContext context) {
     return ListView.builder(
