@@ -13,6 +13,9 @@ class Recipe {
     this.image,
   });
 
+//om vi hämtar ny data från APIet så måste vi även deklarera dessa här på något sätt.. 
+//tex om vi ska hämta ingredienser så måste vi deklarera den som vi gör med tex. String title.
+//då måste dom även göras om till json-objekt nedan.
   static Map<String, dynamic> toJson(Recipe recipe) {
     return {
       'title': recipe.title,
