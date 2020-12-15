@@ -27,24 +27,22 @@ class _RecipeSearchState extends State<RecipeSearch> {
       });
     });
   }
-
-//påbörjat en funktion för getRecipeInformation som ska använda id för att skicka data till RecipeView
-//ska sedan skickas med i onTap funktionen där vi går till RecipeView
+ 
   _getRecipeInformation(int id) {
     API.getRecipeInformation(id).then((response) {
       setState(() {
         var result = json.decode(response.body);
         print(result);
-        recipes = result[""] //result ska nu vara något annat, kolla i APIet
+        recipes = result[""] //result ska nu vara något annat, kolla API
             .map<Recipe>((model) => Recipe.fromJson(model))
             .toList();
       });
-    });
+    }); 
   }
 
   initState() {
     super.initState();
-    _getRecipes(""); //visar alltid recept från start utan query(om queryn är ingenting så kommer den retunera alla recept)
+    _getRecipes(""); 
   }
 
   Widget build(BuildContext context) {
@@ -86,17 +84,20 @@ class _RecipeSearchState extends State<RecipeSearch> {
         body: ListView.builder(
             itemCount: recipes.length,
             itemBuilder: (context, index) {
-              return Card(     //la till ett card för att fixa formatering, här tänkte vi fortsätta imorgon                      
+              return Card(                         
                   child: ListTile(                   
-                    leading: Image.network((recipes[index].image), height: 500, fit: BoxFit.fill), //här hämtas bilden från APIet
-                    title: Text(recipes[index].title, //här hämtas titeln från APIet
+                    leading: Image.network((recipes[index].image), height: 500, fit: BoxFit.fill), 
+                    title: Text(recipes[index].title, 
                         style: TextStyle(fontSize: 16)
                         ),
                     trailing: Icon(Icons.arrow_right),
-                    onTap: () { //gör så att hela ListTilen blir klickbar
+                    onTap: () async {
+                      //hämtar receptet på dess id genom att använda getRecipeInformation.
+                      ShowRecipe showrecipe =
+                      await API.getRecipeInformation(showrecipe.id);
                       Navigator.push(
-              context, MaterialPageRoute(builder: (context) => RecipeView() //här i onTap tänkte vi alltså lägga in getRecipeInformation 
-              //som gör att det valda receptet ska visas i nästa vy
+              context, MaterialPageRoute(builder: (_) => RecipeView()
+                     
                       ));
                     },
                   ));
