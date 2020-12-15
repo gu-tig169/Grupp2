@@ -33,4 +33,3 @@ class _FavoriteListState extends State<FavoriteList> {
     );
   }
 }
-....
