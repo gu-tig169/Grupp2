@@ -4,19 +4,25 @@ import 'API.dart';
 
 class Recipe {
   String title;
+  int id;
+  String image;
 
   Recipe({
     this.title,
+    this.id,
+    this.image,
   });
 
   static Map<String, dynamic> toJson(Recipe recipe) {
     return {
-      'query': recipe.title,
+      'title': recipe.title,
+      'id': recipe.id,
+      'image': recipe.image,
     };
   }
 
   static Recipe fromJson(Map<String, dynamic> json) {
-    return Recipe(title: json['query']);
+    return Recipe(title: json['title'], id: json['id'], image: json['image']);
   }
 }
 
@@ -37,9 +43,12 @@ class MyState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future getRecipe() async {
+  /*Future _search() async {
     List<Recipe> list = await API.getRecipe();
     _list = list;
-    notifyListeners();
-  }
+    notifyListeners();*/
 }
+
+/*void addItem(Recipe recipe) async {
+    await _search();
+    notifyListeners(); */
