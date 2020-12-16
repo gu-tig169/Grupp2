@@ -33,7 +33,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
       setState(() {
         var result = json.decode(response.body);
         print(result);
-        recipes = result[""] //result ska nu vara något annat, kolla API
+        recipes = result[""] //vad skall result vara nu när vi hämtar den nya datan?
             .map<Recipe>((model) => Recipe.fromJson(model))
             .toList();
       });
@@ -93,8 +93,8 @@ class _RecipeSearchState extends State<RecipeSearch> {
                     trailing: Icon(Icons.arrow_right),
                     onTap: () async {
                       //hämtar receptet på dess id genom att använda getRecipeInformation.
-                      ShowRecipe showrecipe =
-                      await API.getRecipeInformation(showrecipe.id);
+                    Recipe recipe =
+                    await API.getRecipeInformation(recipe.id);
                       Navigator.push(
               context, MaterialPageRoute(builder: (_) => RecipeView()
                      

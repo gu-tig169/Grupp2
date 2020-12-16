@@ -54,25 +54,4 @@ class MyState extends ChangeNotifier {
     await _search();
     notifyListeners(); */
 
-    //känns mest rimligt att deklarera det receptet som skall hämtas med ny data då det är ytterligare saker som skall hämtas
-    //Att utläsa av andra liknande klasser verkar detta vara det vanligaste sättet
-    //Behöver endast sätta id för att få ut all information om receptet, och för att exkludera information får vi sätta 
-    //"includeNutrition" till false.
-    //Börjar med att lägga in det såhär tills emulatorn samt koden fungerar och vi kan se hur det blir. 
-
-class ShowRecipe {
-    int id;
-   // bool includeNutrition = false; 
-    ShowRecipe ({this.id,});
-
-    static Map<String, dynamic> toJson(ShowRecipe showrecipe) {
-      return {
-        'id': showrecipe.id,
-        
-      };
-    }
-    static ShowRecipe fromJson(Map<String, dynamic> json) {
-      return ShowRecipe (id: json['id']);
-    }
-
-  }
+   
