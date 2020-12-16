@@ -35,6 +35,23 @@ class _RecipeSearchState extends State<RecipeSearch> {
     super.initState();
     _getRecipes(
         ""); //visar alltid recept från start utan query(om queryn är ingenting så kommer den retunera alla recept)
+ 
+  _getRecipeInformation(int id) {
+    API.getRecipeInformation(id).then((response) {
+      setState(() {
+        var extendedIngridients = json.decode(response.body);
+        print(extendedIngridients);
+        //information = extendedIngridients[""]
+           // .map<Recipe>((model) => Recipe.fromJson(model))
+             //   .toList();
+      });
+    }); 
+  }
+
+  initState() {
+    super.initState();
+    _getRecipes(""); 
+    
   }
 
   Widget build(BuildContext context) {
@@ -129,5 +146,26 @@ class _RecipeSearchState extends State<RecipeSearch> {
                         ));
                   });
             }));
+              return Card(                         
+                  child: ListTile(                   
+                    leading: Image.network((recipes[index].image), height: 500, fit: BoxFit.fill), 
+                    title: Text(recipes[index].title, 
+                        style: TextStyle(fontSize: 16)
+                        ),
+                    trailing: Icon(Icons.arrow_right),
+                    onTap: () async {
+                    //hämtar receptet på dess id genom att använda getRecipeInformation.
+                  // Recipe recipe =
+                    //await API.getRecipeInformation(recipe.id);
+                     Navigator.push(
+                    context, 
+              MaterialPageRoute(builder: (context) => RecipeView(/*_getRecipes(recipes[index].title*/)),
+                      //)
+                      );
+                    },
+                  ));
+            }
+            )
+            );
   }
 }

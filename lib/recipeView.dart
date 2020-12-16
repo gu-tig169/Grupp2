@@ -51,9 +51,9 @@ class _RecipeViewState extends State<RecipeView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-              _image(),
-              _recipeLabel(),
-              _ingredientLabel(),
+            _image(),
+            _recipeLabel(),
+            _ingredientLabel(),
             ])));
   }
 
