@@ -1,12 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'model.dart';
+import 'API.dart';
 
 class GroceryList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+@override 
 
+  Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFEEEEEE),
       appBar: AppBar(
+        backgroundColor: const Color(0XFFD6D6D6),
         actions: [
           PopupMenuButton(
             onSelected: (value) {
