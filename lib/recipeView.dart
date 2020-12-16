@@ -1,18 +1,48 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe/API.dart';
 import 'package:recipe/main.dart';
+import 'package:recipe/model.dart';
 
-class RecipeView extends StatelessWidget {
+class RecipeView extends StatefulWidget {
+  RecipeView(getRecipes);
+
+  @override
+  _RecipeViewState createState() => _RecipeViewState();
+}
+
+class _RecipeViewState extends State<RecipeView> {
+  var recipeInfo = new List<Recipe>();
+
+  _getRecipeInformation(int id) {
+    API.getRecipeInformation(id).then((response) {
+      setState(() {
+        var extendedIngredients = json.decode(response.body);
+        print(extendedIngredients);
+        recipeInfo = extendedIngredients[""]
+            .map<Recipe>((model) => Recipe.fromJson(model))
+            .toList();
+      });
+    });
+  }
+
+  initState() {
+    super.initState();
+    //  _getRecipeInformation(id);
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          actions: <Widget> [
-           GestureDetector(
+          actions: <Widget>[
+            GestureDetector(
               onTap: () {
-                Navigator.pop(context, MaterialPageRoute(builder: (context) => MainView()));
+                Navigator.pop(context,
+                    MaterialPageRoute(builder: (context) => MainView()));
               },
-              child: Icon
-              (Icons.home),
+              child: Icon(Icons.home),
             ),
           ],
         ),
@@ -48,5 +78,4 @@ class RecipeView extends StatelessWidget {
       child: Text('Ingredienser:'),
     );
   }
-
 }

@@ -14,7 +14,7 @@ class RecipeSearch extends StatefulWidget {
 
 class _RecipeSearchState extends State<RecipeSearch> {
   var recipes = new List<Recipe>(); //listan med recept
-  
+
 //funktion som används för att skicka queryn och ändrar state och lägger in resultatet i en lista
   _getRecipes(String query) {
     API.getRecipes(query).then((response) {
@@ -30,21 +30,11 @@ class _RecipeSearchState extends State<RecipeSearch> {
 
 //påbörjat en funktion för getRecipeInformation som ska använda id för att skicka data till RecipeView
 //ska sedan skickas med i onTap funktionen där vi går till RecipeView
-  _getRecipeInformation(int id) {
-    API.getRecipeInformation(id).then((response) {
-      setState(() {
-        var result = json.decode(response.body);
-        print(result);
-        recipes = result[""] //result ska nu vara något annat, kolla i APIet
-            .map<Recipe>((model) => Recipe.fromJson(model))
-            .toList();
-      });
-    });
-  }
 
   initState() {
     super.initState();
-    _getRecipes(""); //visar alltid recept från start utan query(om queryn är ingenting så kommer den retunera alla recept)
+    _getRecipes(
+        ""); //visar alltid recept från start utan query(om queryn är ingenting så kommer den retunera alla recept)
   }
 
   Widget build(BuildContext context) {
@@ -63,12 +53,18 @@ class _RecipeSearchState extends State<RecipeSearch> {
                         borderRadius: BorderRadius.circular(24.0),
                       ),
                       child: TextFormField(
-                        onChanged: (String text) {},
+                        onChanged: (String text) {
+                          _getRecipes(_controller.text);
+                        },
                         controller: _controller,
                         decoration: InputDecoration(
-                          hintText: 'Sök efter recept',
-                          contentPadding: const EdgeInsets.only(left: 24.0),
+                          contentPadding: EdgeInsets.all(15.0),
                           border: InputBorder.none,
+                          hintText: 'Sök efter recept',
+                          suffixIcon: IconButton(
+                            onPressed: () => _controller.clear(),
+                            icon: Icon(Icons.clear),
+                          ),
                         ),
                       ),
                     ),
@@ -86,22 +82,52 @@ class _RecipeSearchState extends State<RecipeSearch> {
         body: ListView.builder(
             itemCount: recipes.length,
             itemBuilder: (context, index) {
-              return Card(     //la till ett card för att fixa formatering, här tänkte vi fortsätta imorgon                      
-                  child: ListTile(                   
-                    leading: Image.network((recipes[index].image), height: 500, fit: BoxFit.fill), //här hämtas bilden från APIet
-                    title: Text(recipes[index].title, //här hämtas titeln från APIet
-                        style: TextStyle(fontSize: 16)
+              return GestureDetector(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    child: Card(
+                      elevation: 2,
+                      color: const Color(0xffe6e3df),
+                      child: Row(children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.40,
+                          child: Image.network((recipes[index].image),
+                              fit: BoxFit.fill),
                         ),
-                    trailing: Icon(Icons.arrow_right),
-                    onTap: () { //gör så att hela ListTilen blir klickbar
-                      Navigator.push(
-              context, MaterialPageRoute(builder: (context) => RecipeView() //här i onTap tänkte vi alltså lägga in getRecipeInformation 
-              //som gör att det valda receptet ska visas i nästa vy
-                      ));
-                    },
-                  ));
-            }
-            )
-            );
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(15.0),
+                                child: Text(
+                                    recipes[index]
+                                        .title, //här hämtas titeln från APIet
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Icon(Icons.arrow_forward_ios_rounded),
+                        ),
+                      ]),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              RecipeView(_getRecipes(recipes[index].title)),
+                        ));
+                  });
+            }));
   }
 }
