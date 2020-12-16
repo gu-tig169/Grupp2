@@ -35,7 +35,9 @@ class _RecipeViewState extends State<RecipeView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFEEEEEE),
         appBar: AppBar(
+          backgroundColor: const Color(0XFFD6D6D6),
           actions: <Widget>[
             GestureDetector(
               onTap: () {
@@ -51,9 +53,9 @@ class _RecipeViewState extends State<RecipeView> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-            _image(),
-            _recipeLabel(),
-            _ingredientLabel(),
+          //  _image(),
+            //_recipeLabel(),
+            //_ingredientLabel(),
             ])));
   }
 
