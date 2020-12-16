@@ -31,11 +31,11 @@ class _RecipeSearchState extends State<RecipeSearch> {
   _getRecipeInformation(int id) {
     API.getRecipeInformation(id).then((response) {
       setState(() {
-        var result = json.decode(response.body);
-        print(result);
-        recipes = result[""] //vad skall result vara nu när vi hämtar den nya datan?
-            .map<Recipe>((model) => Recipe.fromJson(model))
-            .toList();
+        var extendedIngridients = json.decode(response.body);
+        print(extendedIngridients);
+        //information = extendedIngridients[""]
+           // .map<Recipe>((model) => Recipe.fromJson(model))
+             //   .toList();
       });
     }); 
   }
@@ -43,6 +43,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
   initState() {
     super.initState();
     _getRecipes(""); 
+    
   }
 
   Widget build(BuildContext context) {
@@ -92,13 +93,14 @@ class _RecipeSearchState extends State<RecipeSearch> {
                         ),
                     trailing: Icon(Icons.arrow_right),
                     onTap: () async {
-                      //hämtar receptet på dess id genom att använda getRecipeInformation.
-                    Recipe recipe =
-                    await API.getRecipeInformation(recipe.id);
-                      Navigator.push(
-              context, MaterialPageRoute(builder: (_) => RecipeView()
-                     
-                      ));
+                    //hämtar receptet på dess id genom att använda getRecipeInformation.
+                  // Recipe recipe =
+                    //await API.getRecipeInformation(recipe.id);
+                     Navigator.push(
+                    context, 
+              MaterialPageRoute(builder: (context) => RecipeView(/*_getRecipes(recipes[index].title*/)),
+                      //)
+                      );
                     },
                   ));
             }
