@@ -1,8 +1,8 @@
 import 'dart:core';
 
 import 'package:flutter/cupertino.dart';
-
-import 'API.dart';
+import 'package:recipe/models/ingredientsModel.dart';
+import 'package:recipe/models/instructionsModel.dart';
 
 class Recipe {
   String title;
@@ -15,13 +15,10 @@ class Recipe {
     this.image,
   });
 
-  // Use a recipe id to get full information about a recipe, 
+  // Use a recipe id to get full information about a recipe,
   //such as ingredients, nutrition, diet and allergen information, etc.
 
-
-  
-
-//om vi hämtar ny data från APIet så måste vi även deklarera dessa här på något sätt.. 
+//om vi hämtar ny data från APIet så måste vi även deklarera dessa här på något sätt..
 //tex om vi ska hämta ingredienser så måste vi deklarera den som vi gör med tex. String title.
 //då måste dom även göras om till json-objekt nedan.
   static Map<String, dynamic> toJson(Recipe recipe) {
@@ -34,6 +31,32 @@ class Recipe {
 
   static Recipe fromJson(Map<String, dynamic> json) {
     return Recipe(title: json['title'], id: json['id'], image: json['image']);
+  }
+}
+
+class RecipeInformation {
+  Recipe recipe;
+  Ingredients ingredients;
+  Instructions instructions;
+  RecipeInformation({this.ingredients, this.instructions, this.recipe});
+
+  static Map<String, dynamic> toJson(RecipeInformation recipeInformation) {
+    return {
+      'original': recipeInformation.ingredients.ingredient,
+      'id': recipeInformation.ingredients.id,
+      'step': recipeInformation.instructions.step,
+      'number': recipeInformation.instructions.number,
+      'title': recipeInformation.recipe.title,
+      'image': recipeInformation.recipe.image,
+    };
+  }
+
+  static RecipeInformation fromJson(Map<String, dynamic> json) {
+    return RecipeInformation(
+      ingredients: json['original']['id'],
+      instructions: json['step']['number'],
+      recipe: json['title']['image'],
+    );
   }
 }
 
@@ -59,10 +82,8 @@ class MyState extends ChangeNotifier {
     _list = list;
     notifyListeners();*/
 
-    
 }
 
 /*void addItem(Recipe recipe) async {
     await _search();
     notifyListeners(); */
-    

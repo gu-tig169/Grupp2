@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'API.dart';
-import 'model.dart';
+import 'models/model.dart';
 import 'recipeView.dart';
 
 TextEditingController _controller = TextEditingController();
@@ -65,8 +65,13 @@ class _RecipeSearchState extends State<RecipeSearch> {
                           border: InputBorder.none,
                           hintText: 'Sök efter recept',
                           suffixIcon: IconButton(
-                            onPressed: () => _controller.clear(),
                             icon: Icon(Icons.clear),
+                            onPressed: () {
+                              _getRecipes("");
+                            },
+
+                            /*=> _controller.clear,
+                            icon: Icon(Icons.clear),*/
                           ),
                         ),
                       ),
@@ -127,8 +132,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              RecipeView(_getRecipes(recipes[index].title)),
+                          builder: (context) => RecipeView(recipes[index]),
                         ));
                   });
             }));

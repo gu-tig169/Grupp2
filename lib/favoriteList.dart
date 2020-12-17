@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe/model.dart';
+import 'package:recipe/models/model.dart';
 import 'package:provider/provider.dart';
 
 class FavoriteList extends StatefulWidget {
