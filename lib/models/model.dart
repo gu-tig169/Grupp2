@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:flutter/cupertino.dart';
 import 'package:recipe/models/ingredientsModel.dart';
 import 'package:recipe/models/instructionsModel.dart';
@@ -13,6 +15,12 @@ class Recipe {
     this.image,
   });
 
+  // Use a recipe id to get full information about a recipe,
+  //such as ingredients, nutrition, diet and allergen information, etc.
+
+//om vi hämtar ny data från APIet så måste vi även deklarera dessa här på något sätt..
+//tex om vi ska hämta ingredienser så måste vi deklarera den som vi gör med tex. String title.
+//då måste dom även göras om till json-objekt nedan.
   static Map<String, dynamic> toJson(Recipe recipe) {
     return {
       'title': recipe.title,
@@ -73,6 +81,7 @@ class MyState extends ChangeNotifier {
     List<Recipe> list = await API.getRecipe();
     _list = list;
     notifyListeners();*/
+
 }
 
 /*void addItem(Recipe recipe) async {

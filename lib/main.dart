@@ -22,16 +22,16 @@ class MyApp extends StatelessWidget {
 class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: (Colors.grey
-          ),
-        ),
+       // appBar: AppBar(
+        //  backgroundColor: (Colors.grey
+        //  ),
+        
         body: Container(
           //Lagt till nedan (fram till child) för att kunna använda bakgrundsbild
           constraints: BoxConstraints.expand(),
           decoration: BoxDecoration (
             image: DecorationImage(
-              image: AssetImage('assets/backgroundpicture.jpg'),
+              image: AssetImage('assets/picture.jpg'),
               fit: BoxFit.cover, 
                )
             ),
@@ -44,7 +44,7 @@ class MainView extends StatelessWidget {
                 child: Text('Sök efter recept'),
                 //hanterar knappens storlek
                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-               elevation:10, //skugga bakom knapparna
+               elevation:15, //skugga bakom knapparna
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => RecipeSearch()));
@@ -54,7 +54,7 @@ class MainView extends StatelessWidget {
             RaisedButton(
                 child: Text('Mina favoriter'),
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-                elevation:10,
+                elevation:15,
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => FavoriteView()));
@@ -63,7 +63,7 @@ class MainView extends StatelessWidget {
             RaisedButton(
                 child: Text('Inköpslista'),
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 70),
-                elevation:10,
+                elevation:15,
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => GroceryList()));

@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,9 @@ class _RecipeSearchState extends State<RecipeSearch> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFEEEEEE),
         appBar: AppBar(
+          backgroundColor: const Color(0XFFD6D6D6),
             title: Text('Sök recept'),
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(48.0),
