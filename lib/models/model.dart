@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-
-import 'API.dart';
+import 'package:recipe/models/ingredientsModel.dart';
+import 'package:recipe/models/instructionsModel.dart';
 
 class Recipe {
   String title;
@@ -13,7 +13,6 @@ class Recipe {
     this.image,
   });
 
-
   static Map<String, dynamic> toJson(Recipe recipe) {
     return {
       'title': recipe.title,
@@ -24,6 +23,32 @@ class Recipe {
 
   static Recipe fromJson(Map<String, dynamic> json) {
     return Recipe(title: json['title'], id: json['id'], image: json['image']);
+  }
+}
+
+class RecipeInformation {
+  Recipe recipe;
+  Ingredients ingredients;
+  Instructions instructions;
+  RecipeInformation({this.ingredients, this.instructions, this.recipe});
+
+  static Map<String, dynamic> toJson(RecipeInformation recipeInformation) {
+    return {
+      'original': recipeInformation.ingredients.ingredient,
+      'id': recipeInformation.ingredients.id,
+      'step': recipeInformation.instructions.step,
+      'number': recipeInformation.instructions.number,
+      'title': recipeInformation.recipe.title,
+      'image': recipeInformation.recipe.image,
+    };
+  }
+
+  static RecipeInformation fromJson(Map<String, dynamic> json) {
+    return RecipeInformation(
+      ingredients: json['original']['id'],
+      instructions: json['step']['number'],
+      recipe: json['title']['image'],
+    );
   }
 }
 
@@ -53,4 +78,3 @@ class MyState extends ChangeNotifier {
 /*void addItem(Recipe recipe) async {
     await _search();
     notifyListeners(); */
-

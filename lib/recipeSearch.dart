@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'API.dart';
-import 'model.dart';
+import 'models/model.dart';
 import 'recipeView.dart';
 
 TextEditingController _controller = TextEditingController();
@@ -35,23 +35,6 @@ class _RecipeSearchState extends State<RecipeSearch> {
     super.initState();
     _getRecipes(
         ""); //visar alltid recept från start utan query(om queryn är ingenting så kommer den retunera alla recept)
- 
-  _getRecipeInformation(int id) {
-    API.getRecipeInformation(id).then((response) {
-      setState(() {
-        var extendedIngridients = json.decode(response.body);
-        print(extendedIngridients);
-        //information = extendedIngridients[""]
-           // .map<Recipe>((model) => Recipe.fromJson(model))
-             //   .toList();
-      });
-    }); 
-  }
-
-  initState() {
-    super.initState();
-    _getRecipes(""); 
-    
   }
 
   Widget build(BuildContext context) {
@@ -79,8 +62,13 @@ class _RecipeSearchState extends State<RecipeSearch> {
                           border: InputBorder.none,
                           hintText: 'Sök efter recept',
                           suffixIcon: IconButton(
-                            onPressed: () => _controller.clear(),
                             icon: Icon(Icons.clear),
+                            onPressed: () {
+                              _getRecipes("");
+                            },
+
+                            /*=> _controller.clear,
+                            icon: Icon(Icons.clear),*/
                           ),
                         ),
                       ),
@@ -141,31 +129,9 @@ class _RecipeSearchState extends State<RecipeSearch> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              RecipeView(_getRecipes(recipes[index].title)),
+                          builder: (context) => RecipeView(recipes[index]),
                         ));
                   });
             }));
-              return Card(                         
-                  child: ListTile(                   
-                    leading: Image.network((recipes[index].image), height: 500, fit: BoxFit.fill), 
-                    title: Text(recipes[index].title, 
-                        style: TextStyle(fontSize: 16)
-                        ),
-                    trailing: Icon(Icons.arrow_right),
-                    onTap: () async {
-                    //hämtar receptet på dess id genom att använda getRecipeInformation.
-                  // Recipe recipe =
-                    //await API.getRecipeInformation(recipe.id);
-                     Navigator.push(
-                    context, 
-              MaterialPageRoute(builder: (context) => RecipeView(/*_getRecipes(recipes[index].title*/)),
-                      //)
-                      );
-                    },
-                  ));
-            }
-            )
-            );
   }
 }
