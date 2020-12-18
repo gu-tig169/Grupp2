@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe/models/ingredientsModel.dart';
 import 'models/model.dart';
 
 class RecipeWidget extends StatelessWidget {
@@ -11,7 +12,11 @@ class RecipeWidget extends StatelessWidget {
         height: 400,
         child: new Stack(children: <Widget>[
           Image.network(recipeCard.recipe.image, fit: BoxFit.fill),
-          Text(recipeCard.recipe.title)
-        ]));
+          Text(recipeCard.recipe.title),
+          
+        ]   
+          ),
+          );
+        
   }
 }

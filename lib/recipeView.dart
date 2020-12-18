@@ -24,7 +24,7 @@ class _RecipeViewState extends State<RecipeView> {
 
   _getRecipeInformation(int id) async {
     await API.getInstructions(id);
-    await API.getIngredients(id);
+  recipeIngredients =  await API.getIngredients(id);
   }
 
   initState() {
@@ -47,17 +47,43 @@ class _RecipeViewState extends State<RecipeView> {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: recipeInfo.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(
-              recipeInfo[index].ingredients.ingredient,
-              //   child: RecipeWidget(recipeCard)),
+      body: 
+       SingleChildScrollView (
+        child: Column(
+          children: <Widget>[
+            Container(
+              child: SizedBox(
+              width: MediaQuery.of(context).size.width * 100,
+              child: Image.network((widget.recipeCard.image),
+              fit: BoxFit.fill),  
+            )),
+            Container(
+              height: 100,
+              width: 500,
+              color: Colors.red,
+            child: Text(widget.recipeCard.title)
             ),
-          );
-        },
-      ),
-    );
+           Container (
+             child: ListView.builder( 
+              primary: false,
+              shrinkWrap: true,  
+              physics: NeverScrollableScrollPhysics(),  
+            itemCount: recipeIngredients.length,
+            itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(
+            recipeIngredients[index].ingredient,
+            )
+            );
+          }
+              )
+           )
+            ],
+              )
+              )
+    );    
+      
+    
   }
+
 }
