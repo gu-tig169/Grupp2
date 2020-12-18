@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:recipe/models/instructionsModel.dart';
+import 'models/ingredientsModel.dart';
 import 'models/model.dart';
 
 const API_URL = 'https://api.spoonacular.com';
-const API_KEY = 'f4fc5441f361400da4881f4fcf3bfc7a';
+const API_KEY = '807f16c42d604fa1a965952a9473bccc';
 
 class API {
   static Future getRecipes(String query) async {
@@ -14,15 +16,29 @@ class API {
   }
 
   //här vill vi skicka med de parametrar som vi vill visa i recipeView(titeln, ingredienser och instruktioner)
-  static Future getIngredients(int id) async {
-    var ingredients =
-        await http.get(API_URL + '/recipes/{$id}/information&apiKey=$API_KEY');
-    return ingredients;
+  static Future<List<Ingredients>> getIngredients(int id) async {
+    var url =
+        'https://api.spoonacular.com/recipes/$id/information?apiKey=$API_KEY';
+    var response = await http.get(url);
+    String bodyString = response.body;
+    print(response.body);
+    var json = jsonDecode(bodyString);
+    print(json);
+    return json['extendedIngredients'].map<Ingredients>((data) {
+      return Ingredients.fromJson(data);
+    }).toList();
   }
 
-  static Future getInstructions(int id) async {
-    var instructions = await http
-        .get(API_URL + '/recipes/{$id}/analyzedInstructions&apiKey=$API_KEY');
-    return instructions;
+  static Future<List<Instructions>> getInstructions(int id) async {
+    var url =
+        'https://api.spoonacular.com/recipes/$id/analyzedInstructions?apiKey=$API_KEY';
+    var response = await http.get(url);
+    String bodyString = response.body;
+    print(response.body);
+    var json = jsonDecode(bodyString);
+    print(json);
+    return json.map<Instructions>((data) {
+      return Instructions.fromJson(data);
+    }).toList();
   }
 }

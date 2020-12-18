@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe/API.dart';
 import 'package:recipe/main.dart';
+import 'package:recipe/models/ingredientsModel.dart';
+import 'package:recipe/models/instructionsModel.dart';
 import 'package:recipe/models/model.dart';
 import 'package:recipe/recipeWidget.dart';
 
@@ -17,23 +19,12 @@ class RecipeView extends StatefulWidget {
 
 class _RecipeViewState extends State<RecipeView> {
   var recipeInfo = new List<RecipeInformation>();
+  var recipeIngredients = new List<Ingredients>();
+  var recipeInstructions = new List<Instructions>();
 
   _getRecipeInformation(int id) async {
-    var instructions = await API.getInstructions(id);
-    var ingredients = await API.getIngredients(id);
-    setState(() {
-      var steps = json.decode(instructions.body);
-      var extendedIngredients = json.decode(ingredients.body);
-
-      print(steps);
-      print(extendedIngredients);
-      recipeInfo = steps["steps"]
-          .map<RecipeInformation>((model) => RecipeInformation.fromJson(model))
-          .toList();
-      extendedIngredients["extendedIngredients"]
-          .map<RecipeInformation>((model) => RecipeInformation.fromJson(model))
-          .toList();
-    });
+    await API.getInstructions(id);
+    await API.getIngredients(id);
   }
 
   initState() {
@@ -43,21 +34,30 @@ class _RecipeViewState extends State<RecipeView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFFEEEEEE),
-        appBar: AppBar(
-          backgroundColor: const Color(0XFFD6D6D6),
-          actions: <Widget>[
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context,
-                    MaterialPageRoute(builder: (context) => MainView()));
-              },
-              child: Icon(Icons.home),
+      backgroundColor: const Color(0xFFEEEEEE),
+      appBar: AppBar(
+        backgroundColor: const Color(0XFFD6D6D6),
+        actions: <Widget>[
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(
+                  context, MaterialPageRoute(builder: (context) => MainView()));
+            },
+            child: Icon(Icons.home),
+          ),
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: recipeInfo.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(
+              recipeInfo[index].ingredients.ingredient,
+              //   child: RecipeWidget(recipeCard)),
             ),
-          ],
-        ),
-        body: Center(
-            //   child: RecipeWidget(recipeCard)),
-            ));
+          );
+        },
+      ),
+    );
   }
 }

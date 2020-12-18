@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,9 @@ import 'recipeView.dart';
 TextEditingController _controller = TextEditingController();
 
 class RecipeSearch extends StatefulWidget {
+  final List<Recipe> list;
+  RecipeSearch({this.list});
+
   @override
   _RecipeSearchState createState() => _RecipeSearchState();
 }
@@ -17,7 +19,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
   var recipes = new List<Recipe>(); //listan med recept
 
 //funktion som används för att skicka queryn och ändrar state och lägger in resultatet i en lista
-  _getRecipes(String query) {
+  _getRecipes(String query) async {
     API.getRecipes(query).then((response) {
       setState(() {
         var result = json.decode(response.body);
@@ -40,9 +42,9 @@ class _RecipeSearchState extends State<RecipeSearch> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFEEEEEE),
+        backgroundColor: const Color(0xFFEEEEEE),
         appBar: AppBar(
-          backgroundColor: const Color(0XFFD6D6D6),
+            backgroundColor: const Color(0XFFD6D6D6),
             title: Text('Sök recept'),
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(48.0),
