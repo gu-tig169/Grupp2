@@ -21,10 +21,14 @@ class _RecipeViewState extends State<RecipeView> {
   var recipeInfo = new List<RecipeInformation>();
   var recipeIngredients = new List<Ingredients>();
   var recipeInstructions = new List<Instructions>();
+  
 
   _getRecipeInformation(int id) async {
-    await API.getInstructions(id);
-  recipeIngredients =  await API.getIngredients(id);
+  var instructions = await API.getInstructions(id);
+  setState(() {recipeInstructions = instructions;});
+  
+  var ingredients =  await API.getIngredients(id);
+  setState(() {recipeIngredients = ingredients;});
   }
 
   initState() {
@@ -73,6 +77,21 @@ class _RecipeViewState extends State<RecipeView> {
             return ListTile(
               title: Text(
             recipeIngredients[index].ingredient,
+            )
+            );
+          }
+              )
+           ),
+           Container (
+             child: ListView.builder( 
+              primary: false,
+              shrinkWrap: true,  
+              physics: NeverScrollableScrollPhysics(),  
+            itemCount: recipeInstructions.length,
+            itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(
+            recipeInstructions[index].step,
             )
             );
           }

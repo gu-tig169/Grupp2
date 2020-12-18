@@ -6,7 +6,7 @@ import 'models/ingredientsModel.dart';
 import 'models/model.dart';
 
 const API_URL = 'https://api.spoonacular.com';
-const API_KEY = '807f16c42d604fa1a965952a9473bccc';
+const API_KEY = '2bd86bdb69614180b32ff3c1ad21c138';
 
 class API {
   static Future getRecipes(String query) async {
