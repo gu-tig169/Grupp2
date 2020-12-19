@@ -9,6 +9,9 @@ import 'package:recipe/models/instructionsModel.dart';
 import 'package:recipe/models/model.dart';
 import 'package:recipe/recipeWidget.dart';
 
+import 'groceryList.dart';
+import 'grocerySearch.dart';
+
 class RecipeView extends StatefulWidget {
   final Recipe recipeCard;
   RecipeView(this.recipeCard);
@@ -64,8 +67,19 @@ class _RecipeViewState extends State<RecipeView> {
             Container(
               height: 100,
               width: 500,
+      forts-recipeView
+              color: const Color(0xFFEEEEEE),
+            child: Text(widget.recipeCard.title,
+            style: TextStyle(fontSize:20,
+            fontWeight: FontWeight.bold,),
+            
+            
+          ),
+            
+
               color: Colors.red,
             child: Text(widget.recipeCard.title)
+ master
             ),
            Container (
              child: ListView.builder( 
@@ -99,6 +113,28 @@ class _RecipeViewState extends State<RecipeView> {
            )
             ],
               )
+forts-recipeView
+       ),
+       floatingActionButton: _addToList(context),
+       );
+       }
+     Widget _addToList (context) {
+      return FloatingActionButton(
+        child: Icon(Icons.add_shopping_cart,
+        size:56),
+        backgroundColor: Colors.grey,
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => GroceryList()));
+         
+     
+      
+    
+        
+          
+  });
+  }
+  }
+
               )
     );    
       

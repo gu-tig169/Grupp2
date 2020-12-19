@@ -21,24 +21,18 @@ class _RecipeSearchState extends State<RecipeSearch> {
 
 //funktion som används för att skicka queryn och ändrar state och lägger in resultatet i en lista
   _getRecipes(String query) async {
-    API.getRecipes(query).then((response) {
-      setState(() {
-        var result = json.decode(response.body);
-        print(result);
-        recipes = result["results"]
-            .map<Recipe>((model) => Recipe.fromJson(model))
-            .toList();
-      });
-    });
+   var recipe = await API.getRecipes(query);
+   setState(() {recipes = recipe;});  
   }
+  // _getRecipeInformation(int id) async {
+  //var instructions = await API.getInstructions(id);
+  //setState(() {recipeInstructions = instructions;});
 
-//påbörjat en funktion för getRecipeInformation som ska använda id för att skicka data till RecipeView
-//ska sedan skickas med i onTap funktionen där vi går till RecipeView
 
   initState() {
     super.initState();
     _getRecipes(
-        ""); //visar alltid recept från start utan query(om queryn är ingenting så kommer den retunera alla recept)
+        ""); 
   }
 
   Widget build(BuildContext context) {
