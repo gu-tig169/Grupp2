@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe/models/model.dart';
 import 'API.dart';
+import 'grocerySearch.dart';
 
 class GroceryList extends StatelessWidget {
   @override
@@ -27,35 +28,14 @@ class GroceryList extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(),
-            _addGroceryInputField(),
-            _addButton(),
-          ],
-        )));
+            
+          ]
+          )
+          ),
+          floatingActionButton: _addGrocery(context),
+          );
   }
 
-  Widget _addGroceryInputField() {
-    return Container(
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: 'Lägg till vara',
-          filled: true,
-          fillColor: Colors.white,
-        ),
-      ),
-    );
-  }
-
-  Widget _addButton() {
-    return Container(
-      margin: EdgeInsets.only(left: 16, right: 16),
-      child: RaisedButton.icon(
-        icon: Icon(Icons.add),
-        textColor: Colors.black,
-        label: Text('Lägg till i listan'),
-        onPressed: () {},
-      ),
-    );
-  }
 
   List<GroceryList> setFilter(list, filterList) {
     if (filterList == 'Klar') {
@@ -65,4 +45,13 @@ class GroceryList extends StatelessWidget {
     }
     return list;
   }
+   Widget _addGrocery (context) {
+      return FloatingActionButton(
+        child: Icon(Icons.add,
+        size:56),
+        backgroundColor: Colors.grey,
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => GrocerySearch()));
+});
+   }
 }

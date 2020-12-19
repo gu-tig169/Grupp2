@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe/recipeSearch.dart';
-import './groceryList.dart';
+import 'groceryList.dart';
+import 'grocerySearch.dart';
 import './favoriteView.dart';
 
 void main() {
@@ -42,7 +43,6 @@ class MainView extends StatelessWidget {
       
            RaisedButton(
                 child: Text('Sök efter recept'),
-                //hanterar knappens storlek
                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                elevation:15, //skugga bakom knapparna
                 onPressed: () {

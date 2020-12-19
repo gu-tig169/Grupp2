@@ -9,6 +9,9 @@ import 'package:recipe/models/instructionsModel.dart';
 import 'package:recipe/models/model.dart';
 import 'package:recipe/recipeWidget.dart';
 
+import 'groceryList.dart';
+import 'grocerySearch.dart';
+
 class RecipeView extends StatefulWidget {
   final Recipe recipeCard;
   RecipeView(this.recipeCard);
@@ -21,10 +24,14 @@ class _RecipeViewState extends State<RecipeView> {
   var recipeInfo = new List<RecipeInformation>();
   var recipeIngredients = new List<Ingredients>();
   var recipeInstructions = new List<Instructions>();
+  
 
   _getRecipeInformation(int id) async {
-    await API.getInstructions(id);
-    await API.getIngredients(id);
+  var instructions = await API.getInstructions(id);
+  setState(() {recipeInstructions = instructions;});
+  
+  var ingredients =  await API.getIngredients(id);
+  setState(() {recipeIngredients = ingredients;});
   }
 
   initState() {
@@ -47,17 +54,77 @@ class _RecipeViewState extends State<RecipeView> {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: recipeInfo.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(
-              recipeInfo[index].ingredients.ingredient,
-              //   child: RecipeWidget(recipeCard)),
+      body: 
+       SingleChildScrollView (
+        child: Column(
+          children: <Widget>[
+            Container(
+              child: SizedBox(
+              width: MediaQuery.of(context).size.width * 100,
+              child: Image.network((widget.recipeCard.image),
+              fit: BoxFit.fill),  
+            )),
+            Container(
+              height: 100,
+              width: 500,
+              color: const Color(0xFFEEEEEE),
+            child: Text(widget.recipeCard.title,
+            style: TextStyle(fontSize:20,
+            fontWeight: FontWeight.bold,),
+            
+            
+          ),
+            
             ),
-          );
-        },
-      ),
-    );
+           Container (
+             child: ListView.builder( 
+              primary: false,
+              shrinkWrap: true,  
+              physics: NeverScrollableScrollPhysics(),  
+            itemCount: recipeIngredients.length,
+            itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(
+            recipeIngredients[index].ingredient,
+            )
+            );
+          }
+              )
+           ),
+           Container (
+             child: ListView.builder( 
+              primary: false,
+              shrinkWrap: true,  
+              physics: NeverScrollableScrollPhysics(),  
+            itemCount: recipeInstructions.length,
+            itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(
+            recipeInstructions[index].step,
+            )
+            );
+          }
+              )
+           )
+            ],
+              )
+       ),
+       floatingActionButton: _addToList(context),
+       );
+       }
+     Widget _addToList (context) {
+      return FloatingActionButton(
+        child: Icon(Icons.add_shopping_cart,
+        size:56),
+        backgroundColor: Colors.grey,
+        onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => GroceryList()));
+         
+     
+      
+    
+        
+          
+  });
   }
-}
+  }
