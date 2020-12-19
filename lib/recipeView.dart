@@ -67,6 +67,7 @@ class _RecipeViewState extends State<RecipeView> {
             Container(
               height: 100,
               width: 500,
+      forts-recipeView
               color: const Color(0xFFEEEEEE),
             child: Text(widget.recipeCard.title,
             style: TextStyle(fontSize:20,
@@ -75,6 +76,10 @@ class _RecipeViewState extends State<RecipeView> {
             
           ),
             
+
+              color: Colors.red,
+            child: Text(widget.recipeCard.title)
+ master
             ),
            Container (
              child: ListView.builder( 
@@ -108,6 +113,7 @@ class _RecipeViewState extends State<RecipeView> {
            )
             ],
               )
+forts-recipeView
        ),
        floatingActionButton: _addToList(context),
        );
@@ -128,3 +134,11 @@ class _RecipeViewState extends State<RecipeView> {
   });
   }
   }
+
+              )
+    );    
+      
+    
+  }
+
+}

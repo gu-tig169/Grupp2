@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'API.dart';
 import 'models/model.dart';
 import 'recipeView.dart';
+import 'recipeWidget.dart';
 
 TextEditingController _controller = TextEditingController();
 
@@ -98,8 +99,10 @@ class _RecipeSearchState extends State<RecipeSearch> {
                       child: Row(children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.40,
-                          child: Image.network((recipes[index].image),
-                              fit: BoxFit.fill),
+                          child:  
+                            Image.network((recipes[index].image),
+                            fit: BoxFit.fill),
+                            //Image.network(widget.recipe.image, fit: BoxFit.fill), 
                         ),
                         Flexible(
                           child: Column(
