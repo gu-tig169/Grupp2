@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 class FavoriteView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFEEEEEE),
+      backgroundColor: const Color(0xFFFFE4E1),
 
       appBar: AppBar(
-       backgroundColor: const Color(0XFFD6D6D6),
+       backgroundColor: const Color(0xFFFFE4E1),
+       //0XFFFFFFCC
          ),
       
       body: Center (

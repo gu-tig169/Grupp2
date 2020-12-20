@@ -39,9 +39,9 @@ var groceries = new List<Ingredients> ();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFFEEEEEE),
+        backgroundColor: const Color(0xFFFFE4E1),
         appBar: AppBar(
-            backgroundColor: const Color(0XFFD6D6D6),
+            backgroundColor: const Color(0xFFFFE4E1),
             title: Text('Sök varor'),
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(48.0),

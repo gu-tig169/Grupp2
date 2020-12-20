@@ -37,10 +37,10 @@ class _RecipeSearchState extends State<RecipeSearch> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFFEEEEEE),
+        backgroundColor: const Color(0xFFFFE4E1),
         appBar: AppBar(
-            backgroundColor: const Color(0XFFD6D6D6),
-            title: Text('Sök recept'),
+            backgroundColor: const Color(0xFFFFE4E1),
+            title: Text('Sök recept'), 
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(48.0),
               child: Row(
@@ -75,7 +75,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.search, color: Colors.white),
+                    icon: Icon(Icons.search, color: Colors.black),
                     onPressed: () {
                       _getRecipes(_controller
                           .text); //tar text från TextFormField och skickar som query med _controller
@@ -95,7 +95,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
                     ),
                     child: Card(
                       elevation: 2,
-                      color: const Color(0xffe6e3df),
+                      color: const Color(0xFFFFE4E1),
                       child: Row(children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.40,

@@ -41,9 +41,9 @@ class _RecipeViewState extends State<RecipeView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFEEEEEE),
+      backgroundColor: const Color(0xFFFFE4E1),
       appBar: AppBar(
-        backgroundColor: const Color(0XFFD6D6D6),
+        backgroundColor: const Color(0xFFFFE4E1),
         actions: <Widget>[
           GestureDetector(
             onTap: () {
@@ -60,15 +60,15 @@ class _RecipeViewState extends State<RecipeView> {
           children: <Widget>[
             Container(
               child: SizedBox(
-              width: MediaQuery.of(context).size.width * 100,
+              width: MediaQuery.of(context).size.width * 85,
               child: Image.network((widget.recipeCard.image),
               fit: BoxFit.fill),  
             )),
             Container(
-              height: 100,
+              height: 70,
               width: 500,
-      forts-recipeView
-              color: const Color(0xFFEEEEEE),
+   
+              color: const Color(0xFFFFE4E1),
             child: Text(widget.recipeCard.title,
             style: TextStyle(fontSize:20,
             fontWeight: FontWeight.bold,),
@@ -77,9 +77,14 @@ class _RecipeViewState extends State<RecipeView> {
           ),
             
 
-              color: Colors.red,
-            child: Text(widget.recipeCard.title)
- master
+             // color: Colors.red,
+           // child: Text(widget.recipeCard.title)
+            
+            ),
+
+            Container (
+              child: Text('INGREDIENTS',style: TextStyle(fontSize: 20),
+            ),
             ),
            Container (
              child: ListView.builder( 
@@ -96,6 +101,12 @@ class _RecipeViewState extends State<RecipeView> {
           }
               )
            ),
+
+           Container(
+            child: Text('INSTRUCTIONS', style: TextStyle(fontSize: 20),
+             )
+           ),
+
            Container (
              child: ListView.builder( 
               primary: false,
@@ -113,7 +124,6 @@ class _RecipeViewState extends State<RecipeView> {
            )
             ],
               )
-forts-recipeView
        ),
        floatingActionButton: _addToList(context),
        );
@@ -121,7 +131,7 @@ forts-recipeView
      Widget _addToList (context) {
       return FloatingActionButton(
         child: Icon(Icons.add_shopping_cart,
-        size:56),
+        size:30),
         backgroundColor: Colors.grey,
         onPressed: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => GroceryList()));
@@ -135,10 +145,9 @@ forts-recipeView
   }
   }
 
-              )
-    );    
+              
+        
       
     
-  }
 
-}
+
