@@ -9,8 +9,8 @@ class GroceryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFFEEEEEE),
-        appBar: AppBar(backgroundColor: const Color(0XFFD6D6D6), actions: [
+        backgroundColor: const Color(0xFFFFE4E1),
+        appBar: AppBar(backgroundColor: const Color(0xFFFFE4E1), actions: [
           PopupMenuButton(
               onSelected: (value) {
                 //  Provider.of<MyState>(context, listen: false).setFilter(value);

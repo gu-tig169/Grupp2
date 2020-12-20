@@ -6,11 +6,11 @@ import 'models/ingredientsModel.dart';
 import 'models/model.dart';
 
 const API_URL = 'https://api.spoonacular.com';
- forts-recipeView
+ //forts-recipeView
 const API_KEY = '127912785fb741e5b0671607c2660e08';
 
-const API_KEY = '2bd86bdb69614180b32ff3c1ad21c138';
- master
+//const API_KEY = '2bd86bdb69614180b32ff3c1ad21c138';
+// master
 
 class API {
   static Future <List<Recipe>> getRecipes(String query) async {
@@ -46,10 +46,10 @@ class API {
         'https://api.spoonacular.com/recipes/$id/analyzedInstructions?apiKey=$API_KEY';
     var response = await http.get(url);
     String bodyString = response.body;
-    print(response.body);
+    print(bodyString);
     var json = jsonDecode(bodyString);
     print(json);
-    return json.map<Instructions>((data) {
+    return json[0]['steps'].map<Instructions>((data) {
       return Instructions.fromJson(data);
     }).toList();
   }

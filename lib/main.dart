@@ -32,7 +32,7 @@ class MainView extends StatelessWidget {
           constraints: BoxConstraints.expand(),
           decoration: BoxDecoration (
             image: DecorationImage(
-              image: AssetImage('assets/picture.jpg'),
+              image: AssetImage('assets/testbild.jpg'),
               fit: BoxFit.cover, 
                )
             ),
@@ -41,33 +41,41 @@ class MainView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children:  [
       
-           RaisedButton(
-                child: Text('Sök efter recept'),
-               padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
-               elevation:15, //skugga bakom knapparna
+
+             OutlineButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RecipeSearch()));
-                }),
+                      MaterialPageRoute(builder: (context) =>RecipeSearch()));
+                  print("OutlineButton");
+                },
+                child: Text('Recipe Search'),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                 ),
                 
                 Container(height: 30, width: 50,),
-            RaisedButton(
-                child: Text('Mina favoriter'),
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-                elevation:15,
+                OutlineButton(
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => FavoriteView()));
-                }),
-                Container(height: 30, width: 50,),
-            RaisedButton(
-                child: Text('Inköpslista'),
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 70),
-                elevation:15,
+                  print("OutlineButton");
+                },
+                child: Text('Favorite view'),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 45),
+                 ),
+
+        
+              Container(height: 30, width: 50,),
+              OutlineButton(
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => GroceryList()));
-                }),
+                
+                  print("OutlineButton");
+                },
+                child: Text('Grocerylist'),
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+                 ),
+                
           ],
         )));
   }
