@@ -127,7 +127,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => RecipeView(recipes[index]),
+                          builder: (context) => RecipeView(recipe: recipes[index]),
                         ));
                   });
             }));
