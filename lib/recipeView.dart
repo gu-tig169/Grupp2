@@ -75,23 +75,14 @@ class _RecipeViewState extends State<RecipeView> {
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
+                _ingredientList(),
                 Container(
                     child: Text(
                   'INSTRUCTIONS',
                   style: TextStyle(fontSize: 20),
-                )),
-                Container(
-                    child: ListView.builder(
-                        primary: false,
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: recipeInfo.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                              title: Text(
-                            recipeInfo.instructions[index].step,
-                          ));
-                        }))
+                )
+                ),
+                _instructionList(),
               ],
             )),
       floatingActionButton: _addToList(context),
@@ -111,7 +102,7 @@ class _RecipeViewState extends State<RecipeView> {
   }
 
   Widget _ingredientList() {
-    var ingredients = recipeInfo.ingredients;
+    var ingredients = recipeInfo.ingredient;
     return Container(
         child: ListView.builder(
             primary: false,
@@ -122,6 +113,22 @@ class _RecipeViewState extends State<RecipeView> {
               return ListTile(
                   title: Text(
                 ingredients[index].ingredient,
+              ));
+            }));
+  }
+
+  Widget _instructionList() {
+    var instructions = recipeInfo.instructions;
+    return Container(
+        child: ListView.builder(
+            primary: false,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: instructions.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                  title: Text(
+                instructions[index].step,
               ));
             }));
   }
