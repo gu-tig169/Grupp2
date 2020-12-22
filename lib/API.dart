@@ -1,16 +1,12 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:recipe/models/instructionsModel.dart';
 import 'models/ingredientsModel.dart';
 import 'models/model.dart';
+import 'models/recipeModel.dart';
 
 const API_URL = 'https://api.spoonacular.com';
- //forts-recipeView
 const API_KEY = '127912785fb741e5b0671607c2660e08';
-
-//const API_KEY = '2bd86bdb69614180b32ff3c1ad21c138';
-// master
 
 class API {
   static Future <List<Recipe>> getRecipes(String query) async {
@@ -26,9 +22,9 @@ class API {
 //Tildas nyckel: 807f16c42d604fa1a965952a9473bccc
 //Vanessas nyckel:
 //Ellens nyckel:127912785fb741e5b0671607c2660e08
-//Lovisas nyckel: 
+//Lovisas nyckel: 2bd86bdb69614180b32ff3c1ad21c138
  
-  static Future<List<Ingredients>> getIngredients(int id) async {
+  static Future<List<Ingredient>> getIngredients(int id) async {
     var url =
         'https://api.spoonacular.com/recipes/$id/information?apiKey=$API_KEY';
     var response = await http.get(url);
@@ -36,12 +32,12 @@ class API {
     print(response.body);
     var json = jsonDecode(bodyString);
     print(json);
-    return json['extendedIngredients'].map<Ingredients>((data) {
-      return Ingredients.fromJson(data);
+    return json['extendedIngredients'].map<Ingredient>((data) {
+      return Ingredient.fromJson(data);
     }).toList();
   }
 
-  static Future<List<Instructions>> getInstructions(int id) async {
+  static Future<List<Instruction>> getInstructions(int id) async {
     var url =
         'https://api.spoonacular.com/recipes/$id/analyzedInstructions?apiKey=$API_KEY';
     var response = await http.get(url);
@@ -49,20 +45,28 @@ class API {
     print(bodyString);
     var json = jsonDecode(bodyString);
     print(json);
-    return json[0]['steps'].map<Instructions>((data) {
-      return Instructions.fromJson(data);
+    return json[0]['steps'].map<Instruction>((data) {
+      return Instruction.fromJson(data);
     }).toList();
   }
-   static Future<List<Ingredients>> getGrocery(String query) async {
+
+  static Future getRecipeInformation(Recipe recipe) async {
+    var ingredient = await getIngredients(recipe.id);
+    var instructions = await getInstructions(recipe.id);
+    return RecipeInformation(ingredient: ingredient, instructions: instructions, recipe: recipe);
+
+  }
+
+   static Future<List<Ingredient>> getGrocery(String query) async {
     var url =
- 'https://api.spoonacular.com/food/ingredients/search?query=$query&apiKey=$API_KEY';
+     'https://api.spoonacular.com/food/ingredients/search?query=$query&apiKey=$API_KEY';
     var response = await http.get(url);
     String bodyString = response.body;
     print(response.body);
     var json = jsonDecode(bodyString);
     print(json);
-    return json['results'].map<Ingredients>((data) {
-      return Ingredients.fromJson(data);
+    return json['results'].map<Ingredient>((data) {
+      return Ingredient.fromJson(data);
     }).toList();
 }
 }

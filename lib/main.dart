@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe/recipeSearch.dart';
 import 'groceryList.dart';
 import 'grocerySearch.dart';
-import './favoriteView.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -52,20 +52,9 @@ class MainView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                  ),
                 
-                Container(height: 30, width: 50,),
-                OutlineButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => FavoriteView()));
-                  print("OutlineButton");
-                },
-                child: Text('Favorite view'),
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 45),
-                 ),
-
-        
+            
               Container(height: 30, width: 50,),
-              OutlineButton(
+            /*  OutlineButton(
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => GroceryList()));
@@ -75,7 +64,7 @@ class MainView extends StatelessWidget {
                 child: Text('Grocerylist'),
                 padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
                  ),
-                
+                */
           ],
         )));
   }
