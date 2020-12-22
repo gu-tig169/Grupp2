@@ -1,17 +1,16 @@
-class Ingredients {
-  String ingredient;
-  int id;
+class Ingredient {
+  String ingredient, name;
 
-  Ingredients({this.ingredient, this.id});
+  Ingredient({this.ingredient, this.name});
 
-  static Map<String, dynamic> toJson(Ingredients ingredients) {
+  static Map<String, dynamic> toJson(Ingredient ingredient) {
     return {
-      'original': ingredients.ingredient,
-      'id': ingredients.id,
+      'original': ingredient.ingredient,
+      'name': ingredient.name,
     };
   }
 
-  static Ingredients fromJson(Map<String, dynamic> json) {
-    return Ingredients(ingredient: json['original'], id: json['id']);
+  static Ingredient fromJson(Map<String, dynamic> json) {
+    return Ingredient(ingredient: json['original'], name: json['name']);
   }
 }

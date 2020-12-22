@@ -7,12 +7,10 @@ import 'package:recipe/models/model.dart';
 import 'API.dart';
 
 
-
-
 TextEditingController _controller = TextEditingController();
 
 class GrocerySearch extends StatefulWidget {
-   final List<Ingredients> list;
+   final List<Ingredient> list;
   GrocerySearch({this.list});
 
    @override
@@ -20,7 +18,7 @@ class GrocerySearch extends StatefulWidget {
 }
 
 class _GrocerySearchState extends State<GrocerySearch> {
-var groceries = new List<Ingredients> ();
+var groceries = new List<Ingredient> ();
 
 
  _getGrocery(String query) async {

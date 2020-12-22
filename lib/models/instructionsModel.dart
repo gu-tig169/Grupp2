@@ -1,19 +1,15 @@
-class Instructions {
+class Instruction {
   String step;
-  int id, number;
 
-  Instructions({this.step, this.id, this.number});
+  Instruction({this.step});
 
-  static Map<String, dynamic> toJson(Instructions instructions) {
+  static Map<String, dynamic> toJson(Instruction instructions) {
     return {
       'step': instructions.step,
-      'id': instructions.id,
-      'number': instructions.number,
     };
   }
 
-  static Instructions fromJson(Map<String, dynamic> json) {
-    return Instructions(
-        step: json['step'], id: json['id'], number: json['number']);
+  static Instruction fromJson(Map<String, dynamic> json) {
+    return Instruction(step: json['step']);
   }
 }

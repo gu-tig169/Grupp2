@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'API.dart';
-import 'models/model.dart';
 import 'recipeView.dart';
-import 'recipeWidget.dart';
+import 'models/recipeModel.dart';
 
 TextEditingController _controller = TextEditingController();
 
@@ -17,9 +15,8 @@ class RecipeSearch extends StatefulWidget {
 }
 
 class _RecipeSearchState extends State<RecipeSearch> {
-  var recipes = new List<Recipe>(); //listan med recept
+  var recipes = new List<Recipe>(); 
 
-//funktion som används för att skicka queryn och ändrar state och lägger in resultatet i en lista
   _getRecipes(String query) async {
    var recipe = await API.getRecipes(query);
    setState(() {recipes = recipe;});  
@@ -27,7 +24,6 @@ class _RecipeSearchState extends State<RecipeSearch> {
   // _getRecipeInformation(int id) async {
   //var instructions = await API.getInstructions(id);
   //setState(() {recipeInstructions = instructions;});
-
 
   initState() {
     super.initState();
@@ -78,7 +74,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
                     icon: Icon(Icons.search, color: Colors.black),
                     onPressed: () {
                       _getRecipes(_controller
-                          .text); //tar text från TextFormField och skickar som query med _controller
+                          .text); 
                     },
                   ),
                 ],
