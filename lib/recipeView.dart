@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe/API.dart';
 import 'package:recipe/main.dart';
-import 'package:recipe/models/model.dart';
 import 'groceryList.dart';
 import 'models/recipeModel.dart';
 
@@ -49,14 +48,8 @@ class _RecipeViewState extends State<RecipeView> {
       body: recipeInfo == null
           ? Container()
           : SingleChildScrollView(
-              child: Column(
-              children: <Widget>[
-                Container(
-                    child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 85,
-                  child: Image.network((recipeInfo.recipe.image),
-                      fit: BoxFit.fill),
-                )),
+              child: Column(children: <Widget>[
+                _recipeImage(),
                 Container(
                   height: 70,
                   width: 500,
@@ -80,11 +73,10 @@ class _RecipeViewState extends State<RecipeView> {
                     child: Text(
                   'INSTRUCTIONS',
                   style: TextStyle(fontSize: 20),
-                )
-                ),
+                )),
                 _instructionList(),
-              ],
-            )),
+              ]),
+            ),
       floatingActionButton: _addToList(context),
     );
   }
@@ -99,6 +91,14 @@ class _RecipeViewState extends State<RecipeView> {
               MaterialPageRoute(
                   builder: (context) => GroceryList(recipeInfo.ingredients)));
         });
+  }
+  
+Widget _recipeImage() {
+    return Container(
+        child: SizedBox(
+      width: MediaQuery.of(context).size.width * 85,
+      child: Image.network((recipeInfo.recipe.image), fit: BoxFit.fill),
+    ));
   }
 
   Widget _ingredientList() {
@@ -132,4 +132,6 @@ class _RecipeViewState extends State<RecipeView> {
               ));
             }));
   }
+
+  
 }
