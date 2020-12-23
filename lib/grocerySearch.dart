@@ -6,32 +6,29 @@ import 'package:recipe/models/ingredientsModel.dart';
 import 'package:recipe/models/model.dart';
 import 'API.dart';
 
-
 TextEditingController _controller = TextEditingController();
 
 class GrocerySearch extends StatefulWidget {
-   final List<Ingredient> list;
+  final List<Ingredient> list;
   GrocerySearch({this.list});
 
-   @override
+  @override
   _GrocerySearchState createState() => _GrocerySearchState();
 }
 
 class _GrocerySearchState extends State<GrocerySearch> {
-var groceries = new List<Ingredient> ();
+  var groceries = new List<Ingredient>();
 
-
- _getGrocery(String query) async {
-   var grocery = await API.getGrocery(query);
-   setState(() {groceries = grocery;});
-
-       
+  _getGrocery(String query) async {
+    var grocery = await API.getGrocery(query);
+    setState(() {
+      groceries = grocery;
+    });
   }
 
-   initState() {
+  initState() {
     super.initState();
-    _getGrocery(
-        ""); 
+    _getGrocery("");
   }
 
   @override
@@ -64,12 +61,8 @@ var groceries = new List<Ingredient> ();
                           suffixIcon: IconButton(
                             icon: Icon(Icons.clear),
                             onPressed: () {
-                              _getGrocery("");
+                              _getGrocery(_controller.clear)                          
                             },
-                            
-
-                            /*=> _controller.clear,
-                            icon: Icon(Icons.clear),*/
                           ),
                         ),
                       ),
@@ -84,46 +77,29 @@ var groceries = new List<Ingredient> ();
                   ),
                 ],
               ),
-            )
-            ),
-             body: ListView.builder(
+            )),
+        body: ListView.builder(
             itemCount: groceries.length,
             itemBuilder: (context, index) {
               return GestureDetector(
-                child: Container (
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                  ),
-    
-                   child: Column(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       Padding(
-                         padding: EdgeInsets.all(15.0),
-                         child: Text(
-                           groceries[index].ingredient,
-                           style: TextStyle(
-                             fontSize: 16,
-                             fontWeight: FontWeight.bold
-                           ),
-                         )
-                       )
-                     ],
-
-                   ),
-                 
-
-                )
-              )
-              
-              
-              
-              // ListTile (
-               //title:Text(groceries[index].ingredient,//här hämtas titeln från APIet
-                                    
-                //)
-              //)
-              ;
-              }  ));
-  }}
+                  child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Text(
+                          groceries[index].ingredient,
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ))
+                  ],
+                ),
+              ));
+            }));
+  }
+}

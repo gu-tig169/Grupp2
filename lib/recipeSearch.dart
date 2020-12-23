@@ -21,9 +21,6 @@ class _RecipeSearchState extends State<RecipeSearch> {
    var recipe = await API.getRecipes(query);
    setState(() {recipes = recipe;});  
   }
-  // _getRecipeInformation(int id) async {
-  //var instructions = await API.getInstructions(id);
-  //setState(() {recipeInstructions = instructions;});
 
   initState() {
     super.initState();

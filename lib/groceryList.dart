@@ -5,27 +5,10 @@ import 'API.dart';
 import 'grocerySearch.dart';
 import 'models/recipeModel.dart';
 
-class GroceryList extends StatefulWidget {
-  final RecipeInformation recipeCard;
-  GroceryList(this.recipeCard);
-  
-  @override
-  _GroceryListState createState() => _GroceryListState();
-}
+class GroceryList extends StatelessWidget {
+  final RecipeInformation recipeIngredient;
+  GroceryList(this.recipeIngredient);
 
-class _GroceryListState extends State<GroceryList> {
-  var groceries = new List<RecipeInformation>();
-
-  _getRecipeIngredient(int id) async {
-  var grocery = await API.getIngredients(id);
-  //setState(() {groceries = grocery;});
-  }
-
-  initState() {
-    super.initState();
-    _getRecipeIngredient(widget.recipeCard.recipe.id);
-  }
-  
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFFFFE4E1),
@@ -41,6 +24,7 @@ class _GroceryListState extends State<GroceryList> {
                   ]),
         ]),
         body: 
+        _groceryList(),
         /*ListView.builder(
             itemCount: groceries.length,
             itemBuilder: (context, index) {
@@ -82,6 +66,23 @@ class _GroceryListState extends State<GroceryList> {
         backgroundColor: Colors.grey,
         onPressed: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => GrocerySearch()));
-});
+}
+);
+   }
+
+   Widget _groceryList() {
+     return Card(
+       child: ListView.builder(
+            itemCount: recipeIngredient.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(.text),
+              leading: Checkbox( 
+                
+              )
+              );
+            },
+            )
+            );
    }
   }
