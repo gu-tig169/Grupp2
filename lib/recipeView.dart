@@ -15,8 +15,6 @@ class RecipeView extends StatefulWidget {
 
 class _RecipeViewState extends State<RecipeView> {
   var recipeInfo;
-  //var recipeIngredients = new List<Ingredient>();
-  //var recipeInstructions = new List<Instruction>();
 
   void _getRecipeInformation(Recipe recipe) async {
     var information = await API.getRecipeInformation(recipe);
@@ -49,31 +47,14 @@ class _RecipeViewState extends State<RecipeView> {
           ? Container()
           : SingleChildScrollView(
               child: Column(children: <Widget>[
+                _recipeTitle(),
+                _ingredientsLabel(),
                 _recipeImage(),
-                Container(
-                  height: 70,
-                  width: 500,
-                  color: const Color(0xFFFFE4E1),
-                  child: Text(
-                    recipeInfo.recipe.title,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Container(
-                  child: Text(
-                    'INGREDIENTS',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
                 _ingredientList(),
                 Container(
-                    child: Text(
-                  'INSTRUCTIONS',
-                  style: TextStyle(fontSize: 20),
-                )),
+                  height: 50,
+                ),
+                _instructionsLabel(),
                 _instructionList(),
               ]),
             ),
@@ -89,11 +70,11 @@ class _RecipeViewState extends State<RecipeView> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => GroceryList(recipeInfo.ingredients)));
+                  builder: (context) => GroceryList(recipeInfo.ingredient)));
         });
   }
-  
-Widget _recipeImage() {
+
+  Widget _recipeImage() {
     return Container(
         child: SizedBox(
       width: MediaQuery.of(context).size.width * 85,
@@ -133,5 +114,35 @@ Widget _recipeImage() {
             }));
   }
 
-  
+  Widget _recipeTitle() {
+    return Container(
+      height: 70,
+      width: 500,
+      color: const Color(0xFFFFE4E1),
+      child: Text(
+        recipeInfo.recipe.title,
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  Widget _ingredientsLabel() {
+    return Container(
+      child: Text(
+        'INGREDIENTS',
+        style: TextStyle(fontSize: 20),
+      ),
+    );
+  }
+}
+
+Widget _instructionsLabel() {
+  return Container(
+      child: Text(
+    'INSTRUCTIONS',
+    style: TextStyle(fontSize: 20),
+  ));
 }
