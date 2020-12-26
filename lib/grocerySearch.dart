@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe/models/ingredientsModel.dart';
-import 'package:recipe/models/model.dart';
 import 'API.dart';
 
 TextEditingController _controller = TextEditingController();
@@ -61,7 +58,7 @@ class _GrocerySearchState extends State<GrocerySearch> {
                           suffixIcon: IconButton(
                             icon: Icon(Icons.clear),
                             onPressed: () {
-                              _getGrocery(_controller.clear)                          
+                              //              _getGrocery(_controller.clear)
                             },
                           ),
                         ),
@@ -71,8 +68,8 @@ class _GrocerySearchState extends State<GrocerySearch> {
                   IconButton(
                     icon: Icon(Icons.search, color: Colors.white),
                     onPressed: () {
-                      _getGrocery(_controller
-                          .text); //tar text från TextFormField och skickar som query med _controller
+                      //     _getGrocery(_controller
+                      //        .text); //tar text från TextFormField och skickar som query med _controller
                     },
                   ),
                 ],

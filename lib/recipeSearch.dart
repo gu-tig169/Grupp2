@@ -15,17 +15,18 @@ class RecipeSearch extends StatefulWidget {
 }
 
 class _RecipeSearchState extends State<RecipeSearch> {
-  var recipes = new List<Recipe>(); 
+  var recipes = new List<Recipe>();
 
   _getRecipes(String query) async {
-   var recipe = await API.getRecipes(query);
-   setState(() {recipes = recipe;});  
+    var recipe = await API.getRecipes(query);
+    setState(() {
+      recipes = recipe;
+    });
   }
 
   initState() {
     super.initState();
-    _getRecipes(
-        ""); 
+    _getRecipes("");
   }
 
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
         backgroundColor: const Color(0xFFFFE4E1),
         appBar: AppBar(
             backgroundColor: const Color(0xFFFFE4E1),
-            title: Text('Sök recept'), 
+            title: Text('Sök recept'),
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(48.0),
               child: Row(
@@ -70,8 +71,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
                   IconButton(
                     icon: Icon(Icons.search, color: Colors.black),
                     onPressed: () {
-                      _getRecipes(_controller
-                          .text); 
+                      _getRecipes(_controller.text);
                     },
                   ),
                 ],
@@ -92,10 +92,9 @@ class _RecipeSearchState extends State<RecipeSearch> {
                       child: Row(children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.40,
-                          child:  
-                            Image.network((recipes[index].image),
-                            fit: BoxFit.fill),
-                            //Image.network(widget.recipe.image, fit: BoxFit.fill), 
+                          child: Image.network((recipes[index].image),
+                              fit: BoxFit.fill),
+                          //Image.network(widget.recipe.image, fit: BoxFit.fill),
                         ),
                         Flexible(
                           child: Column(
@@ -124,7 +123,8 @@ class _RecipeSearchState extends State<RecipeSearch> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => RecipeView(recipe: recipes[index]),
+                          builder: (context) =>
+                              RecipeView(recipe: recipes[index]),
                         ));
                   });
             }));
