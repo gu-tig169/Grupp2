@@ -1,25 +1,61 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe/models/ingredientsModel.dart';
-
-import 'package:recipe/models/model.dart';
-
+import 'package:recipe/API.dart';
+import 'package:recipe/models/recipeModel.dart';
 import 'grocerySearch.dart';
 
-class GroceryList extends StatelessWidget {
-  final RecipeInformation recipeInformation;
-  GroceryList({this.recipeInformation});
+class GroceryList extends StatefulWidget {
+  final Recipe recipe;
+  GroceryList(this.recipe);
+
+  @override
+  _GroceryListState createState() => _GroceryListState();
+}
+
+class _GroceryListState extends State<GroceryList> {
+  var ingredient;
+
+  void _getRecipeInformation(Recipe recipe) async {
+    var information = await API.getRecipeInformation(recipe);
+    setState(() {
+      ingredient = information;
+    });
+  }
+
+  initState() {
+    super.initState();
+    _getRecipeInformation(widget.recipe);
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFFFFE4E1),
-        appBar: AppBar(backgroundColor: const Color(0xFFFFE4E1), actions: [
-          _popUpMenuButton(),
-        ]),
-        body: Text(""));
-    //_groceryList(),
-    // floatingActionButton: _addGrocery(context),
-    //);
+      backgroundColor: const Color(0xFFFFE4E1),
+      appBar: AppBar(backgroundColor: const Color(0xFFFFE4E1), actions: [
+        PopupMenuButton(
+            onSelected: (value) {
+              //  Provider.of<MyState>(context, listen: false).setFilter(value);
+            },
+            itemBuilder: (context) => [
+                  PopupMenuItem(child: Text('All'), value: 'All'),
+                  PopupMenuItem(child: Text('Done'), value: 'Done'),
+                  PopupMenuItem(child: Text('Undone'), value: 'Undone'),
+                ]),
+      ]),
+      body: _groceryList(),
+      /*ListView.builder(
+            itemCount: groceries.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(.text),
+              leading: Checkbox( 
+                
+              )
+              );
+            }
+        */
+
+      floatingActionButton: _addGrocery(context),
+    );
   }
 
   List<GroceryList> setFilter(list, filterList) {
@@ -42,30 +78,17 @@ class GroceryList extends StatelessWidget {
   }
 
   Widget _groceryList() {
-    var ingredients = recipeInformation.ingredient;
-    Container(
+    return Card(
         child: ListView.builder(
-            primary: false,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: ingredients.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                  title: Text(
-                ingredients[index].name,
-              ));
-            }));
-  }
+      itemCount: ingredient.recipe.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(ingredient.text),
+          //    leading: Checkbox(
 
-  Widget _popUpMenuButton() {
-    return PopupMenuButton(
-        onSelected: (value) {
-          //  Provider.of<MyState>(context, listen: false).setFilter(value);
-        },
-        itemBuilder: (context) => [
-              PopupMenuItem(child: Text('All'), value: 'All'),
-              PopupMenuItem(child: Text('Done'), value: 'Done'),
-              PopupMenuItem(child: Text('Undone'), value: 'Undone'),
-            ]);
+          //   )
+        );
+      },
+    ));
   }
 }
