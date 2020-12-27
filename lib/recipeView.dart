@@ -30,9 +30,9 @@ class _RecipeViewState extends State<RecipeView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFE4E1),
+      backgroundColor: const Color(0xFFFFFFFF),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFFFE4E1),
+        backgroundColor: const Color(0xFF9AB39F),
         actions: <Widget>[
           GestureDetector(
             onTap: () {
@@ -47,14 +47,23 @@ class _RecipeViewState extends State<RecipeView> {
           ? Container()
           : SingleChildScrollView(
               child: Column(children: <Widget>[
-                _recipeTitle(),
-                _ingredientsLabel(),
                 _recipeImage(),
+                // _recipeTitle(),
+                Container(
+                  height: 30,
+                ),
+                _ingredientsLabel(),
+                Container(
+                  height: 10,
+                ),
                 _ingredientList(),
                 Container(
-                  height: 50,
+                  height: 30,
                 ),
                 _instructionsLabel(),
+                Container(
+                  height: 10,
+                ),
                 _instructionList(),
               ]),
             ),
@@ -65,56 +74,77 @@ class _RecipeViewState extends State<RecipeView> {
   Widget _addToList(context) {
     return FloatingActionButton(
         child: Icon(Icons.add_shopping_cart, size: 30),
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.orange.withOpacity(0.5),
         onPressed: () {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => GroceryList(recipeInfo.ingredient)));
+                  builder: (context) =>
+                      GroceryList(recipeInformation: recipeInfo.ingredient)));
         });
   }
 
   Widget _recipeImage() {
-    return Container(
-        child: SizedBox(
-      width: MediaQuery.of(context).size.width * 85,
-      child: Image.network((recipeInfo.recipe.image), fit: BoxFit.fill),
-    ));
+    return Stack(alignment: Alignment.center, children: <Widget>[
+      Container(
+          height: 270,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+            fit: BoxFit.cover,
+            image: NetworkImage((recipeInfo.recipe.image)),
+          )),
+          alignment: Alignment.bottomLeft,
+          child: Container(
+              height: 60,
+              width: 500,
+              color: Colors.black.withOpacity(0.3),
+              child: Center(
+                  child: Text(recipeInfo.recipe.title,
+                      style: TextStyle(
+                        fontSize: 20,
+                        //fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      )))))
+    ]);
   }
 
   Widget _ingredientList() {
     var ingredients = recipeInfo.ingredient;
-    return Container(
-        child: ListView.builder(
-            primary: false,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: ingredients.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                  title: Text(
-                ingredients[index].ingredient,
-              ));
-            }));
+    return Padding(
+        padding: EdgeInsets.all(15),
+        child: Container(
+            child: ListView.builder(
+                primary: false,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: ingredients.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                      title: Text(
+                    ingredients[index].ingredient,
+                  ));
+                })));
   }
 
   Widget _instructionList() {
     var instructions = recipeInfo.instructions;
-    return Container(
-        child: ListView.builder(
-            primary: false,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: instructions.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                  title: Text(
-                instructions[index].step,
-              ));
-            }));
+    return Padding(
+        padding: EdgeInsets.all(15),
+        child: Container(
+            child: ListView.builder(
+                primary: false,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: instructions.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                      title: Text(
+                    instructions[index].step,
+                  ));
+                })));
   }
 
-  Widget _recipeTitle() {
+  /* Widget _recipeTitle() {
     return Container(
       height: 70,
       width: 500,
@@ -127,22 +157,23 @@ class _RecipeViewState extends State<RecipeView> {
         ),
       ),
     );
-  }
+  }*/
 
   Widget _ingredientsLabel() {
-    return Container(
+    return Center(
       child: Text(
         'INGREDIENTS',
-        style: TextStyle(fontSize: 20),
+        style: TextStyle(fontSize: 20, color: Colors.black),
       ),
     );
   }
 }
 
 Widget _instructionsLabel() {
-  return Container(
-      child: Text(
-    'INSTRUCTIONS',
-    style: TextStyle(fontSize: 20),
-  ));
+  return Center(
+    child: Text(
+      'INSTRUCTIONS',
+      style: TextStyle(fontSize: 20, color: Colors.black),
+    ),
+  );
 }

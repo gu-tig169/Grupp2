@@ -9,21 +9,22 @@ const API_URL = 'https://api.spoonacular.com';
 const API_KEY = '127912785fb741e5b0671607c2660e08';
 
 class API {
-  static Future <List<Recipe>> getRecipes(String query) async {
+  static Future<List<Recipe>> getRecipes(String query) async {
     var response = await http.get(API_URL +
         '/recipes/complexSearch?query=$query&number=20&apiKey=$API_KEY');
-        String bodyString = response.body;
-        print(response.body);
-        var json = jsonDecode(bodyString);
-        print (json);
-        return json['results'].map<Recipe>((data) => Recipe.fromJson(data))
-            .toList();
+    String bodyString = response.body;
+    print(response.body);
+    var json = jsonDecode(bodyString);
+    print(json);
+    return json['results']
+        .map<Recipe>((data) => Recipe.fromJson(data))
+        .toList();
   }
 //Tildas nyckel: 807f16c42d604fa1a965952a9473bccc
 //Vanessas nyckel:
 //Ellens nyckel:127912785fb741e5b0671607c2660e08
 //Lovisas nyckel: 2bd86bdb69614180b32ff3c1ad21c138
- 
+
   static Future<List<Ingredient>> getIngredients(int id) async {
     var url =
         'https://api.spoonacular.com/recipes/$id/information?apiKey=$API_KEY';
@@ -53,13 +54,13 @@ class API {
   static Future getRecipeInformation(Recipe recipe) async {
     var ingredient = await getIngredients(recipe.id);
     var instructions = await getInstructions(recipe.id);
-    return RecipeInformation(ingredient: ingredient, instructions: instructions, recipe: recipe);
-
+    return RecipeInformation(
+        ingredient: ingredient, instructions: instructions, recipe: recipe);
   }
 
-   static Future<List<Ingredient>> getGrocery(String query) async {
+  static Future<List<Ingredient>> getGrocery(String query) async {
     var url =
-     'https://api.spoonacular.com/food/ingredients/search?query=$query&apiKey=$API_KEY';
+        'https://api.spoonacular.com/food/ingredients/search?query=$query&apiKey=$API_KEY';
     var response = await http.get(url);
     String bodyString = response.body;
     print(response.body);
@@ -68,5 +69,5 @@ class API {
     return json['results'].map<Ingredient>((data) {
       return Ingredient.fromJson(data);
     }).toList();
-}
+  }
 }

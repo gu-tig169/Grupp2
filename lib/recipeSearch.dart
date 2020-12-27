@@ -31,102 +31,101 @@ class _RecipeSearchState extends State<RecipeSearch> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFFFFE4E1),
-        appBar: AppBar(
-            backgroundColor: const Color(0xFFFFE4E1),
-            title: Text('Sök recept'),
-            bottom: PreferredSize(
-              preferredSize: Size.fromHeight(48.0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 12.0, bottom: 8.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24.0),
-                      ),
-                      child: TextFormField(
-                        onChanged: (String text) {
-                          _getRecipes(_controller.text);
-                        },
-                        controller: _controller,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(15.0),
-                          border: InputBorder.none,
-                          hintText: 'Sök efter recept',
-                          suffixIcon: IconButton(
-                            icon: Icon(Icons.clear),
-                            onPressed: () {
-                              _getRecipes("");
-                            },
+      backgroundColor: const Color(0xFFFFFFFF),
+      appBar: AppBar(
+          backgroundColor: const Color(0xFF9AB39F),
+          title: Text('Search recipies'),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(48.0),
+            child: Row(
+              children: <Widget>[
+                _searchField(),
+                _searchButton(),
+              ],
+            ),
+          )),
+      body: _recipeCard(),
+    );
+  }
 
-                            /*=> _controller.clear,
+  Widget _searchField() {
+    return Expanded(
+      child: Container(
+        margin: const EdgeInsets.only(left: 12.0, bottom: 8.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(24.0),
+        ),
+        child: TextFormField(
+          onChanged: (String text) {
+            _getRecipes(_controller.text);
+          },
+          controller: _controller,
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(15.0),
+            border: InputBorder.none,
+            hintText: 'Search recipies',
+            suffixIcon: IconButton(
+              icon: Icon(Icons.clear),
+              onPressed: () {
+                _getRecipes("");
+              },
+
+              /*=> _controller.clear,
                             icon: Icon(Icons.clear),*/
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.search, color: Colors.black),
-                    onPressed: () {
-                      _getRecipes(_controller.text);
-                    },
-                  ),
-                ],
-              ),
-            )),
-        body: ListView.builder(
-            itemCount: recipes.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                  child: Container(
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _searchButton() {
+    return IconButton(
+      icon: Icon(Icons.search, color: Colors.black),
+      onPressed: () {
+        _getRecipes(_controller.text);
+      },
+    );
+  }
+
+  Widget _recipeCard() {
+    return ListView.builder(
+        itemCount: recipes.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+              child: Card(
+                  child: Stack(alignment: Alignment.center, children: <Widget>[
+                Container(
+                    height: 250,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                    ),
-                    child: Card(
-                      elevation: 2,
-                      color: const Color(0xFFFFE4E1),
-                      child: Row(children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.40,
-                          child: Image.network((recipes[index].image),
-                              fit: BoxFit.fill),
-                          //Image.network(widget.recipe.image, fit: BoxFit.fill),
-                        ),
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(15.0),
-                                child: Text(
-                                    recipes[index]
-                                        .title, //här hämtas titeln från APIet
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Icon(Icons.arrow_forward_ios_rounded),
-                        ),
-                      ]),
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              RecipeView(recipe: recipes[index]),
-                        ));
-                  });
-            }));
+                        image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage((recipes[index].image)),
+                    )),
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                        height: 80,
+                        width: 500,
+                        color: Colors.white.withOpacity(0.8),
+                        child: Center(
+                            child: Text(recipes[index].title,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                )))))
+              ])),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RecipeView(recipe: recipes[index]),
+                    ));
+              });
+        });
+  }
+
+  Widget _recipeLabel(index) {
+    return Text(recipes[index].title, style: TextStyle(fontSize: 20));
   }
 }
