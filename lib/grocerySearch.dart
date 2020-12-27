@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe/models/ingredientsModel.dart';
 import 'API.dart';
+import 'models/ingredientsModel.dart';
+import 'groceryList.dart';
 
 TextEditingController _controller = TextEditingController();
 
@@ -28,81 +30,98 @@ class _GrocerySearchState extends State<GrocerySearch> {
     _getGrocery("");
   }
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFE4E1),
-      appBar: AppBar(
-          backgroundColor: const Color(0xFFFFE4E1),
-          title: Text('Search groceries'),
-          bottom: PreferredSize(
+        backgroundColor: const Color(0xFFFFE4E1),
+        appBar: AppBar(
+            backgroundColor: const Color(0xFFFFE4E1),
+            title: Text('Search groceries'),
+            bottom: PreferredSize(
               preferredSize: Size.fromHeight(48.0),
-              child: Row(children: <Widget>[
-                _searchField(),
-                _searchButton(),
-              ]))),
-      body: _resultsList(), //listan med sökreslutaten
-    );
-  }
-
-  Widget _searchField() {
-    return Expanded(
-        child: Container(
-            margin: const EdgeInsets.only(left: 12.0, bottom: 8.0),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(24.0)),
-            child: TextFormField(
-              onChanged: (String text) {
-                _getGrocery(_controller.text);
-              },
-              controller: _controller,
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(15.0),
-                border: InputBorder.none,
-                hintText: 'Sök efter varor',
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.clear),
-                  onPressed: () {
-                    //              _getGrocery(_controller.clear)
-                  },
-                ),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.only(left: 12.0, bottom: 8.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(24.0),
+                      ),
+                      child: TextFormField(
+                        onChanged: (String text) {
+                          _getGrocery(_controller.text);
+                        },
+                        controller: _controller,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(15.0),
+                          border: InputBorder.none,
+                          hintText: 'Search groceries',
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.clear),
+                            onPressed: () {
+                              _getGrocery("");
+                              //_controller.clear
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.search, color: Colors.white),
+                    onPressed: () {
+                      _getGrocery(_controller.text);
+                      //tar text från TextFormField och skickar som query med _controller
+                    },
+                  ),
+                ],
               ),
-            )));
-  }
-
-  Widget _searchButton() {
-    return IconButton(
-      icon: Icon(Icons.search, color: Colors.white),
-      onPressed: () {
-        //     _getGrocery(_controller
-        //        .text); //tar text från TextFormField och skickar som query med _controller
-      },
-    );
-  }
-
-  Widget _resultsList() {
-    return ListView.builder(
-        itemCount: groceries.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-              child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                    padding: EdgeInsets.all(15.0),
-                    child: Text(
-                      groceries[index].ingredient,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ))
-              ],
-            ),
-          ));
-        });
+            )),
+        body: ListView.builder(
+            itemCount: groceries.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                  ),
+                  child: Card(
+                    elevation: 2,
+                    color: const Color(0xFFFFE4E1),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(15.0),
+                          child: Text(
+                            groceries[index].name,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 350.0),
+                          child: Icon(Icons.add),
+                          
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  //Navigator.push(
+                  //context, MaterialPageRoute(
+                //  builder: (context) =>
+                 // GroceryList()
+                  
+                  
+                  
+                },
+              );
+            }));
   }
 }
