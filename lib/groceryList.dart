@@ -1,25 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:recipe/models/ingredientsModel.dart';
-
 import 'package:recipe/models/model.dart';
 
 import 'grocerySearch.dart';
 
 class GroceryList extends StatelessWidget {
   final RecipeInformation recipeInformation;
-  GroceryList({this.recipeInformation});
+  final Ingredient grocery;
+  GroceryList({this.recipeInformation, this.grocery});
 
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFFFFE4E1),
-        appBar: AppBar(backgroundColor: const Color(0xFFFFE4E1), actions: [
-          _popUpMenuButton(),
-        ]),
-        body: Text(""));
-    //_groceryList(),
-    // floatingActionButton: _addGrocery(context),
-    //);
+      backgroundColor: const Color(0xFFFFFFFF),
+      appBar: AppBar(backgroundColor: const Color(0xFF9AB39F), actions: [
+        _popUpMenuButton(),
+      ]),
+      body: recipeInformation == null ? Container() : _groceryList(context),
+      floatingActionButton: _addGrocery(context),
+    );
   }
 
   List<GroceryList> setFilter(list, filterList) {
@@ -41,20 +41,33 @@ class GroceryList extends StatelessWidget {
         });
   }
 
-  Widget _groceryList() {
+  Widget _groceryList(context) {
     var ingredients = recipeInformation.ingredient;
-    Container(
-        child: ListView.builder(
-            primary: false,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: ingredients.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                  title: Text(
-                ingredients[index].name,
-              ));
-            }));
+    var groceries = grocery.name;
+
+    return ListView.builder(
+        itemCount: ingredients.length,
+        itemBuilder: (context, index) {
+          return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+              ),
+              child: Card(
+                  child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: ListTile(
+                        title: Text(ingredients[index].name,
+                            style: TextStyle(
+                              fontSize: 20,
+                            )),
+                        leading: Checkbox(
+                          value: false,
+                          onChanged: (bool value) {},
+                        ),
+                        trailing: Icon(Icons.cancel),
+                      ))));
+        });
   }
 
   Widget _popUpMenuButton() {
