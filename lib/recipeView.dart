@@ -102,7 +102,6 @@ class _RecipeViewState extends State<RecipeView> {
                   child: Text(recipeInfo.recipe.title,
                       style: TextStyle(
                         fontSize: 20,
-                        //fontWeight: FontWeight.bold,
                         color: Colors.white,
                       )))))
     ]);
@@ -143,21 +142,6 @@ class _RecipeViewState extends State<RecipeView> {
                   ));
                 })));
   }
-
-  /* Widget _recipeTitle() {
-    return Container(
-      height: 70,
-      width: 500,
-      color: const Color(0xFFFFE4E1),
-      child: Text(
-        recipeInfo.recipe.title,
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }*/
 
   Widget _ingredientsLabel() {
     return Center(

@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
+import 'package:recipe/models/ingredientsModel.dart';
 import 'package:recipe/models/model.dart';
 import 'grocerySearch.dart';
 
 class GroceryList extends StatefulWidget {
   final RecipeInformation recipeInformation;
-  GroceryList({this.recipeInformation});
+  final Ingredient grocery;
+  GroceryList({this.recipeInformation, this.grocery});
 
   @override
   _GroceryListState createState() => _GroceryListState();
@@ -44,6 +48,35 @@ class _GroceryListState extends State<GroceryList> {
         });
   }
 
+
+  Widget _groceryList(context) {
+    var ingredients = recipeInformation.ingredient;
+    var groceries = grocery.name;
+
+    return ListView.builder(
+        itemCount: ingredients.length,
+        itemBuilder: (context, index) {
+          return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+              ),
+              child: Card(
+                  child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: ListTile(
+                        title: Text(ingredients[index].name,
+                            style: TextStyle(
+                              fontSize: 20,
+                            )),
+                        leading: Checkbox(
+                          value: false,
+                          onChanged: (bool value) {},
+                        ),
+                        trailing: Icon(Icons.cancel),
+                      ))));
+        });
+
   Widget _groceryList() {
     var ingredients = widget.recipeInformation.ingredient;
   
@@ -66,6 +99,7 @@ class _GroceryListState extends State<GroceryList> {
                 
               );
             }));
+
   }
 
   Widget _popUpMenuButton() {

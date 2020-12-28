@@ -32,96 +32,85 @@ class _GrocerySearchState extends State<GrocerySearch> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFFFFE4E1),
-        appBar: AppBar(
-            backgroundColor: const Color(0xFFFFE4E1),
-            title: Text('Search groceries'),
-            bottom: PreferredSize(
+      backgroundColor: const Color(0xFFFFFFFF),
+      appBar: AppBar(
+          backgroundColor: const Color(0xFF9AB39F),
+          title: Text('Search groceries'),
+          bottom: PreferredSize(
               preferredSize: Size.fromHeight(48.0),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 12.0, bottom: 8.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24.0),
-                      ),
-                      child: TextFormField(
-                        onChanged: (String text) {
-                          _getGrocery(_controller.text);
-                        },
-                        controller: _controller,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(15.0),
-                          border: InputBorder.none,
-                          hintText: 'Search groceries',
-                          suffixIcon: IconButton(
-                            icon: Icon(Icons.clear),
-                            onPressed: () {
-                              _getGrocery("");
-                              //_controller.clear
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.search, color: Colors.white),
-                    onPressed: () {
-                      _getGrocery(_controller.text);
-                      //tar text från TextFormField och skickar som query med _controller
-                    },
-                  ),
-                ],
-              ),
-            )),
-        body: ListView.builder(
-            itemCount: groceries.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                child: Container(
+              child: Row(children: <Widget>[
+                _searchField(),
+                _searchButton(),
+              ]))),
+      body: _resultList(),
+    );
+  }
+
+  Widget _searchField() {
+    return Expanded(
+        child: Container(
+            margin: const EdgeInsets.only(left: 12.0, bottom: 8.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(24.0),
+            ),
+            child: TextFormField(
+                onChanged: (String text) {
+                  _getGrocery(_controller.text);
+                },
+                controller: _controller,
+                decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(15.0),
+                    border: InputBorder.none,
+                    hintText: 'Search groceries',
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.clear),
+                      onPressed: () {
+                        _controller.clear();
+                      },
+                    )))));
+  }
+
+  Widget _searchButton() {
+    return IconButton(
+        icon: Icon(Icons.search, color: Colors.white),
+        onPressed: () {
+          _getGrocery(_controller.text);
+          //tar text från TextFormField och skickar som query med _controller
+        });
+  }
+
+  Widget _resultList() {
+    return ListView.builder(
+        itemCount: groceries.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+              child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white,
                   ),
                   child: Card(
-                    elevation: 2,
-                    color: const Color(0xFFFFE4E1),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(15.0),
-                          child: Text(
-                            groceries[index].name,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                      child: Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: ListTile(
+                            title: Text(groceries[index].name,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                )),
+                            trailing: IconButton(
+                              icon: Icon(Icons.add),
+                              color: Colors.grey,
+                              onPressed: () {},
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 350.0),
-                          child: Icon(Icons.add),
-                          
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                onTap: () {
-                  //Navigator.push(
-                  //context, MaterialPageRoute(
-                //  builder: (context) =>
-                 // GroceryList()
-                  
-                  
-                  
-                },
-              );
-            }));
-  }
+                          )))),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            GroceryList(grocery: groceries[index])));
+              });
+        });
+
 }
