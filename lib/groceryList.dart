@@ -1,23 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 import 'package:recipe/models/ingredientsModel.dart';
 import 'package:recipe/models/model.dart';
-
 import 'grocerySearch.dart';
 
-class GroceryList extends StatelessWidget {
+class GroceryList extends StatefulWidget {
   final RecipeInformation recipeInformation;
   final Ingredient grocery;
   GroceryList({this.recipeInformation, this.grocery});
 
+  @override
+  _GroceryListState createState() => _GroceryListState();
+}
+
+class _GroceryListState extends State<GroceryList> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFFFF),
-      appBar: AppBar(backgroundColor: const Color(0xFF9AB39F), actions: [
+      appBar: AppBar(backgroundColor: const Color(0xFF9AB39F), 
+      title: Text('Grocery list'), 
+      actions: [
         _popUpMenuButton(),
       ]),
-      body: recipeInformation == null ? Container() : _groceryList(context),
+      body: widget.recipeInformation == null ? Container() : _groceryList(),
       floatingActionButton: _addGrocery(context),
     );
   }
@@ -40,6 +47,7 @@ class GroceryList extends StatelessWidget {
               MaterialPageRoute(builder: (context) => GrocerySearch()));
         });
   }
+
 
   Widget _groceryList(context) {
     var ingredients = recipeInformation.ingredient;
@@ -68,6 +76,30 @@ class GroceryList extends StatelessWidget {
                         trailing: Icon(Icons.cancel),
                       ))));
         });
+
+  Widget _groceryList() {
+    var ingredients = widget.recipeInformation.ingredient;
+  
+    return Container(
+        child: ListView.builder(
+            primary: false,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: ingredients.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                  title: Text(
+                ingredients[index].name,
+              ),
+               leading: Checkbox(
+                value: false,
+                onChanged: (bool value){}
+                ),
+                trailing: Icon(Icons.cancel),
+                
+              );
+            }));
+
   }
 
   Widget _popUpMenuButton() {

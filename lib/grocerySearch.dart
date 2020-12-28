@@ -112,5 +112,5 @@ class _GrocerySearchState extends State<GrocerySearch> {
                             GroceryList(grocery: groceries[index])));
               });
         });
-  }
+
 }
