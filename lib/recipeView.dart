@@ -80,7 +80,7 @@ class _RecipeViewState extends State<RecipeView> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      GroceryList(recipeInformation: recipeInfo.ingredient)));
+                      GroceryList(recipeInformation: recipeInfo)));
         });
   }
 
