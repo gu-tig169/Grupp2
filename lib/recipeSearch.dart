@@ -15,7 +15,7 @@ class RecipeSearch extends StatefulWidget {
 }
 
 class _RecipeSearchState extends State<RecipeSearch> {
-  var recipes = new List<Recipe>();
+  var recipes;
 
   _getRecipes(String query) async {
     var recipe = await API.getRecipes(query);
@@ -94,27 +94,30 @@ class _RecipeSearchState extends State<RecipeSearch> {
         itemCount: recipes.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-              child: Card(
-                  child: Stack(alignment: Alignment.center, children: <Widget>[
-                Container(
-                    height: 250,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage((recipes[index].image)),
-                    )),
-                    alignment: Alignment.bottomLeft,
-                    child: Container(
-                        height: 80,
-                        width: 500,
-                        color: Colors.white.withOpacity(0.8),
-                        child: Center(
-                            child: Text(recipes[index].title,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                )))))
-              ])),
+              child: Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Card(
+                      child:
+                          Stack(alignment: Alignment.center, children: <Widget>[
+                    Container(
+                        height: 250,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage((recipes[index].image)),
+                        )),
+                        alignment: Alignment.bottomLeft,
+                        child: Container(
+                            height: 80,
+                            width: 500,
+                            color: Colors.white.withOpacity(0.8),
+                            child: Center(
+                                child: Text(recipes[index].title,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                    )))))
+                  ]))),
               onTap: () {
                 Navigator.push(
                     context,
@@ -123,9 +126,5 @@ class _RecipeSearchState extends State<RecipeSearch> {
                     ));
               });
         });
-  }
-
-  Widget _recipeLabel(index) {
-    return Text(recipes[index].title, style: TextStyle(fontSize: 20));
   }
 }

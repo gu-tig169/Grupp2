@@ -1,25 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe/models/ingredientsModel.dart';
+import 'package:recipe/groceryList.dart';
+import 'package:recipe/models/model.dart';
 import 'API.dart';
-import 'models/ingredientsModel.dart';
-import 'groceryList.dart';
 
 TextEditingController _controller = TextEditingController();
 
 class GrocerySearch extends StatefulWidget {
-  final List<Ingredient> list;
-  GrocerySearch({this.list});
+  final RecipeInformation groceries;
+  GrocerySearch({this.groceries});
 
   @override
   _GrocerySearchState createState() => _GrocerySearchState();
 }
 
 class _GrocerySearchState extends State<GrocerySearch> {
-  var groceries = new List<Ingredient>();
+  var groceries;
 
-  _getGrocery(String query) async {
-    var grocery = await API.getGrocery(query);
+  void _getGroceries(String query) async {
+    var grocery = await API.getGroceries(query);
     setState(() {
       groceries = grocery;
     });
@@ -27,7 +26,7 @@ class _GrocerySearchState extends State<GrocerySearch> {
 
   initState() {
     super.initState();
-    _getGrocery("");
+    _getGroceries("");
   }
 
   Widget build(BuildContext context) {
@@ -56,7 +55,7 @@ class _GrocerySearchState extends State<GrocerySearch> {
             ),
             child: TextFormField(
                 onChanged: (String text) {
-                  _getGrocery(_controller.text);
+                  _getGroceries(_controller.text);
                 },
                 controller: _controller,
                 decoration: InputDecoration(
@@ -75,14 +74,16 @@ class _GrocerySearchState extends State<GrocerySearch> {
     return IconButton(
         icon: Icon(Icons.search, color: Colors.white),
         onPressed: () {
-          _getGrocery(_controller.text);
+          _getGroceries(_controller.text);
           //tar text från TextFormField och skickar som query med _controller
         });
   }
 
   Widget _resultList() {
+    var results = groceries.ingredient;
+
     return ListView.builder(
-        itemCount: groceries.length,
+        itemCount: results.length,
         itemBuilder: (context, index) {
           return GestureDetector(
               child: Container(
@@ -92,25 +93,23 @@ class _GrocerySearchState extends State<GrocerySearch> {
                   ),
                   child: Card(
                       child: Padding(
-                          padding: EdgeInsets.all(10.0),
+                          padding: EdgeInsets.all(5.0),
                           child: ListTile(
-                            title: Text(groceries[index].name,
+                            title: Text(results[index].name,
                                 style: TextStyle(
                                   fontSize: 20,
                                 )),
                             trailing: IconButton(
-                              icon: Icon(Icons.add),
-                              color: Colors.grey,
-                              onPressed: () {},
-                            ),
-                          )))),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            GroceryList(grocery: groceries[index])));
-              });
+                                icon: Icon(Icons.add),
+                                color: Colors.grey,
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => GroceryList(
+                                              recipeInformation: groceries)));
+                                }),
+                          )))));
         });
-
+  }
 }
