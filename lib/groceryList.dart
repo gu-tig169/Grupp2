@@ -3,25 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:recipe/models/model.dart';
 import 'grocerySearch.dart';
 
-class GroceryList extends StatefulWidget {
+class GroceryList extends StatelessWidget {
   final RecipeInformation recipeInformation;
   GroceryList({this.recipeInformation});
 
-  @override
-  _GroceryListState createState() => _GroceryListState();
-}
-
-class _GroceryListState extends State<GroceryList> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFFFF),
-      appBar: AppBar(
-          backgroundColor: const Color(0xFF9AB39F),
-          title: Text('Grocery list'),
-          actions: [
-            _popUpMenuButton(),
-          ]),
-      body: widget.recipeInformation == null ? Container() : _groceryList(),
+      appBar: AppBar(backgroundColor: const Color(0xFF9AB39F), actions: [
+        _popUpMenuButton(),
+      ]),
+      body: recipeInformation == null ? Container() : _groceryList(context),
       floatingActionButton: _addGrocery(context),
     );
   }
@@ -71,37 +63,17 @@ class _GroceryListState extends State<GroceryList> {
                         trailing: Icon(Icons.cancel),
                       ))));
         });
+  }
 
-    Widget _groceryList() {
-      var ingredients = widget.recipeInformation.ingredient;
-
-      return Container(
-          child: ListView.builder(
-              primary: false,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: ingredients.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                    ingredients[index].name,
-                  ),
-                  leading: Checkbox(value: false, onChanged: (bool value) {}),
-                  trailing: Icon(Icons.cancel),
-                );
-              }));
-    }
-
-    Widget _popUpMenuButton() {
-      return PopupMenuButton(
-          onSelected: (value) {
-            //  Provider.of<MyState>(context, listen: false).setFilter(value);
-          },
-          itemBuilder: (context) => [
-                PopupMenuItem(child: Text('All'), value: 'All'),
-                PopupMenuItem(child: Text('Done'), value: 'Done'),
-                PopupMenuItem(child: Text('Undone'), value: 'Undone'),
-              ]);
-    }
+  Widget _popUpMenuButton() {
+    return PopupMenuButton(
+        onSelected: (value) {
+          //  Provider.of<MyState>(context, listen: false).setFilter(value);
+        },
+        itemBuilder: (context) => [
+              PopupMenuItem(child: Text('All'), value: 'All'),
+              PopupMenuItem(child: Text('Done'), value: 'Done'),
+              PopupMenuItem(child: Text('Undone'), value: 'Undone'),
+            ]);
   }
 }

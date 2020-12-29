@@ -111,5 +111,5 @@ class _GrocerySearchState extends State<GrocerySearch> {
                                 }),
                           )))));
         });
-
+  }
 }
