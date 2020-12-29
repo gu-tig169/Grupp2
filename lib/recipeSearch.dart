@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'API.dart';
+import 'circularProcessIndicator.dart';
 import 'recipeView.dart';
 import 'models/recipeModel.dart';
 
@@ -44,7 +47,9 @@ class _RecipeSearchState extends State<RecipeSearch> {
               ],
             ),
           )),
-      body: _recipeCard(),
+      body: recipes == null
+          ? Container(child: CircularProgressIndicatorApp())
+          : _recipeCard(),
     );
   }
 

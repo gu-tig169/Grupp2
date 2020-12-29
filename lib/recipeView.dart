@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe/API.dart';
+import 'package:recipe/circularProcessIndicator.dart';
 import 'package:recipe/main.dart';
 import 'groceryList.dart';
 import 'models/recipeModel.dart';
@@ -44,7 +45,7 @@ class _RecipeViewState extends State<RecipeView> {
         ],
       ),
       body: recipeInfo == null
-          ? Container()
+          ? Container(child: CircularProgressIndicatorApp())
           : SingleChildScrollView(
               child: Column(children: <Widget>[
                 _recipeImage(),
@@ -87,7 +88,7 @@ class _RecipeViewState extends State<RecipeView> {
   Widget _recipeImage() {
     return Stack(alignment: Alignment.center, children: <Widget>[
       Container(
-          height: 270,
+          height: 350,
           decoration: BoxDecoration(
               image: DecorationImage(
             fit: BoxFit.cover,
@@ -95,15 +96,17 @@ class _RecipeViewState extends State<RecipeView> {
           )),
           alignment: Alignment.bottomLeft,
           child: Container(
-              height: 60,
+              height: 100,
               width: 500,
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withOpacity(0.6),
               child: Center(
-                  child: Text(recipeInfo.recipe.title,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                      )))))
+                  child: Padding(
+                      padding: EdgeInsets.only(left: 15),
+                      child: Text(recipeInfo.recipe.title,
+                          style: TextStyle(
+                            fontSize: 25,
+                            color: Colors.white,
+                          ))))))
     ]);
   }
 
@@ -139,25 +142,36 @@ class _RecipeViewState extends State<RecipeView> {
                   return ListTile(
                       title: Text(
                     instructions[index].step,
+                    style: TextStyle(fontSize: 18),
                   ));
                 })));
   }
 
   Widget _ingredientsLabel() {
-    return Center(
-      child: Text(
-        'INGREDIENTS',
-        style: TextStyle(fontSize: 20, color: Colors.black),
-      ),
-    );
+    return Padding(
+        padding: EdgeInsets.only(left: 30),
+        child: Container(
+          alignment: Alignment.bottomLeft,
+          child: Text(
+            'Ingredients',
+            style: TextStyle(
+                fontSize: 22,
+                color: Colors.black,
+                fontWeight: (FontWeight.bold)),
+          ),
+        ));
   }
 }
 
 Widget _instructionsLabel() {
-  return Center(
-    child: Text(
-      'INSTRUCTIONS',
-      style: TextStyle(fontSize: 20, color: Colors.black),
-    ),
-  );
+  return Padding(
+      padding: EdgeInsets.only(left: 30),
+      child: Container(
+        alignment: Alignment.bottomLeft,
+        child: Text(
+          'Preparation',
+          style: TextStyle(
+              fontSize: 22, color: Colors.black, fontWeight: (FontWeight.bold)),
+        ),
+      ));
 }
