@@ -1,15 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:recipe/models/ingredientsModel.dart';
 import 'package:recipe/models/model.dart';
-
 import 'grocerySearch.dart';
 
 class GroceryList extends StatelessWidget {
   final RecipeInformation recipeInformation;
-  final Ingredient grocery;
-  GroceryList({this.recipeInformation, this.grocery});
+  GroceryList({this.recipeInformation});
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +39,6 @@ class GroceryList extends StatelessWidget {
 
   Widget _groceryList(context) {
     var ingredients = recipeInformation.ingredient;
-    var groceries = grocery.name;
 
     return ListView.builder(
         itemCount: ingredients.length,
@@ -55,7 +50,7 @@ class GroceryList extends StatelessWidget {
               ),
               child: Card(
                   child: Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(5.0),
                       child: ListTile(
                         title: Text(ingredients[index].name,
                             style: TextStyle(
