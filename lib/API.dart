@@ -6,7 +6,7 @@ import 'models/model.dart';
 import 'models/recipeModel.dart';
 
 const API_URL = 'https://api.spoonacular.com';
-const API_KEY = '2bd86bdb69614180b32ff3c1ad21c138';
+const API_KEY = 'cc4af75efb474606b40290cd87c0048f';
 
 class API {
   static Future<List<Recipe>> getRecipes(String query) async {
@@ -20,10 +20,11 @@ class API {
         .map<Recipe>((data) => Recipe.fromJson(data))
         .toList();
   }
-//Tildas nyckel: 807f16c42d604fa1a965952a9473bccc
+//Tildas nyckel: cc4af75efb474606b40290cd87c0048f
 //Vanessas nyckel:
 //Ellens nyckel:127912785fb741e5b0671607c2660e08
 //Lovisas nyckel: 2bd86bdb69614180b32ff3c1ad21c138
+//498df339ae85443d9cef018fa131d06f
 
   static Future<List<Ingredient>> getIngredients(int id) async {
     var url =

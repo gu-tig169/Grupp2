@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:recipe/circularProcessIndicator.dart';
 import 'package:recipe/models/model.dart';
 import 'grocerySearch.dart';
 
@@ -10,10 +11,21 @@ class GroceryList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFFFF),
-      appBar: AppBar(backgroundColor: const Color(0xFF9AB39F), actions: [
-        _popUpMenuButton(),
-      ]),
-      body: recipeInformation == null ? Container() : _groceryList(context),
+      appBar: AppBar(
+          backgroundColor: const Color(0xFF9AB39F),
+          title: RichText(
+              text: TextSpan(children: [
+            TextSpan(text: "Grocery list  ", style: TextStyle(fontSize: 25)),
+            WidgetSpan(
+              child: Icon(Icons.local_grocery_store, size: 20),
+            )
+          ])),
+          actions: [
+            _popUpMenuButton(),
+          ]),
+      body: recipeInformation == null
+          ? Container(child: CircularProgressIndicatorApp())
+          : _groceryList(context),
       floatingActionButton: _addGrocery(context),
     );
   }
