@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe/recipeSearch.dart';
-
 import 'grocerySearch.dart';
+import 'groceryList.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -84,8 +85,8 @@ class MainView extends StatelessWidget {
               side: BorderSide(color: Colors.white)),
           color: Colors.white.withOpacity(0.8),
           onPressed: () {
-            //  Navigator.push(context,
-            //    MaterialPageRoute(builder: (context) => GroceryList()));
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => GroceryList()));
           },
           child: Text('See grocery list',
               style: TextStyle(
