@@ -1,12 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:recipe/models/model.dart';
 import 'package:recipe/recipeSearch.dart';
 import 'grocerySearch.dart';
 import 'groceryList.dart';
 
 
 void main() {
-  runApp(MyApp());
+var state = MyState();
+
+  runApp(
+    ChangeNotifierProvider(
+    create: (context) => state,
+    child: MyApp(),
+    ),
+  );
+    
 }
 
 //test
