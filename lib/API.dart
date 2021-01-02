@@ -11,7 +11,7 @@ const API_KEY = 'cc4af75efb474606b40290cd87c0048f';
 class API {
   static Future<List<Recipe>> getRecipes(String query) async {
     var response = await http.get(API_URL +
-        '/recipes/complexSearch?query=$query&number=20&apiKey=$API_KEY');
+        '/recipes/complexSearch?query=$query&number=20&intructionsRequired=true&apiKey=$API_KEY');
     String bodyString = response.body;
     print(response.body);
     var json = jsonDecode(bodyString);
