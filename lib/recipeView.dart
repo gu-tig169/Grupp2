@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe/API.dart';
 import 'package:recipe/circularProcessIndicator.dart';
+import 'package:recipe/groceryListView.dart';
 import 'package:recipe/main.dart';
 import 'groceryList.dart';
 import 'models/recipeModel.dart';
@@ -81,7 +82,7 @@ class _RecipeViewState extends State<RecipeView> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      GroceryList(recipeInformation: recipeInfo)));
+                      GroceryListView(recipeInformation: recipeInfo)));
         });
   }
 

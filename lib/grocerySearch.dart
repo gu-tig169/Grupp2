@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe/circularProcessIndicator.dart';
 import 'package:recipe/groceryList.dart';
+import 'package:recipe/groceryListView.dart';
 import 'package:recipe/models/model.dart';
 import 'API.dart';
 
@@ -98,21 +99,25 @@ class _GrocerySearchState extends State<GrocerySearch> {
                       child: Padding(
                           padding: EdgeInsets.all(5.0),
                           child: ListTile(
-                              title: Text(results[index].name,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                  )),
-                              trailing: IconButton(
-                                  icon: Icon(Icons.add),
-                                  color: Colors.grey,
-                                  onPressed: () {
-                                    /*   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => GroceryList(
-                                              recipeInformation: groceries)));
-                                }), */
-                                  }))))));
+                            title: Text(results[index].name,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                )),
+                            trailing: IconButton(
+                                icon: Icon(Icons.add),
+                                color: Colors.grey,
+                                onPressed: () {
+                                  setState(() {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                GroceryListView(
+                                                    grocery:
+                                                        groceries[index])));
+                                  });
+                                }),
+                          )))));
         });
   }
 }

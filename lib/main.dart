@@ -6,17 +6,14 @@ import 'package:recipe/recipeSearch.dart';
 import 'grocerySearch.dart';
 import 'groceryList.dart';
 
-
 void main() {
-var state = MyState();
+//var state = MyState();
 
   runApp(
-    ChangeNotifierProvider(
-    create: (context) => state,
-    child: MyApp(),
-    ),
+    /*ChangeNotifierProvider(
+    create: (context) => state,*/
+    MyApp(),
   );
-    
 }
 
 //test
@@ -95,7 +92,7 @@ class MainView extends StatelessWidget {
               side: BorderSide(color: Colors.white)),
           color: Colors.white.withOpacity(0.8),
           onPressed: () {
-              Navigator.push(context,
+            Navigator.push(context,
                 MaterialPageRoute(builder: (context) => GroceryList()));
           },
           child: Text('See grocery list',
