@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   http: any
   provider: ^4.3.2+2
+  grouped_list: ^3.7.1
   
 
 dev_dependencies:

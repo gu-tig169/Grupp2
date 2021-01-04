@@ -35,16 +35,15 @@ class _RecipeSearchState extends State<RecipeSearch> {
       backgroundColor: const Color(0xFFFFFFFF),
       appBar: AppBar(
           backgroundColor: const Color(0xFF9AB39F),
-          title: Text('Search recipies'),
+          title: Text('Search recipies', style: TextStyle(fontSize: 20)),
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(48.0),
-            child: Row(
-              children: <Widget>[
-                _searchField(),
-                _searchButton(),
-              ],
-            ),
-          )),
+              preferredSize: Size.fromHeight(48.0),
+              child: Row(
+                children: <Widget>[
+                  _searchField(),
+                  _searchButton(),
+                ],
+              ))),
       body: recipes == null
           ? Container(child: CircularProgressIndicatorApp())
           : _recipeCard(),
@@ -69,14 +68,10 @@ class _RecipeSearchState extends State<RecipeSearch> {
             border: InputBorder.none,
             hintText: 'Search recipies',
             suffixIcon: IconButton(
-              icon: Icon(Icons.clear),
-              onPressed: () {
-                _getRecipes("");
-              },
-
-              /*=> _controller.clear,
-                            icon: Icon(Icons.clear),*/
-            ),
+                icon: Icon(Icons.clear),
+                onPressed: () {
+                  _controller.clear();
+                }),
           ),
         ),
       ),
@@ -98,7 +93,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
         itemBuilder: (context, index) {
           return GestureDetector(
               child: Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: EdgeInsets.only(top: 20.0),
                   child: Card(
                       child:
                           Stack(alignment: Alignment.center, children: <Widget>[

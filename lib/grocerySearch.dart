@@ -2,27 +2,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe/circularProcessIndicator.dart';
 import 'package:recipe/groceryList.dart';
-import 'package:recipe/groceryListView.dart';
+import 'groceryListView.dart';
 import 'package:recipe/models/model.dart';
 import 'API.dart';
 
 TextEditingController _controller = TextEditingController();
 
 class GrocerySearch extends StatefulWidget {
-  final RecipeInformation groceries;
-  GrocerySearch({this.groceries});
+  final RecipeInformation grocery;
+  GrocerySearch({this.grocery});
 
   @override
   _GrocerySearchState createState() => _GrocerySearchState();
 }
 
 class _GrocerySearchState extends State<GrocerySearch> {
-  var groceries;
+  var grocery;
 
   void _getGroceries(String query) async {
-    var grocery = await API.getGroceries(query);
+    var result = await API.getGroceries(query);
     setState(() {
-      groceries = grocery;
+      grocery = result;
     });
   }
 
@@ -43,7 +43,7 @@ class _GrocerySearchState extends State<GrocerySearch> {
                 _searchField(),
                 _searchButton(),
               ]))),
-      body: groceries == null
+      body: grocery == null
           ? Container(child: CircularProgressIndicatorApp())
           : _resultList(),
     );
@@ -84,7 +84,7 @@ class _GrocerySearchState extends State<GrocerySearch> {
   }
 
   Widget _resultList() {
-    var results = groceries.ingredient;
+    var results = grocery.ingredient;
 
     return ListView.builder(
         itemCount: results.length,
@@ -112,9 +112,7 @@ class _GrocerySearchState extends State<GrocerySearch> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                GroceryListView(
-                                                    grocery:
-                                                        groceries[index])));
+                                                GroceryList()));
                                   });
                                 }),
                           )))));

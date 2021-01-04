@@ -3,14 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:recipe/groceryList.dart';
 import 'package:recipe/grocerySearch.dart';
 import 'package:recipe/main.dart';
-import 'package:recipe/models/model.dart';
 
 class GroceryListView extends StatelessWidget {
-  final RecipeInformation recipeInformation;
-  final RecipeInformation grocery;
-
-  GroceryListView({this.recipeInformation, this.grocery});
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -26,7 +20,7 @@ class GroceryListView extends StatelessWidget {
                 }),
           ]),
       // backgroundColor: const Color(0xFFFFFFFF),
-      body: GroceryList(recipeInformation: recipeInformation, grocery: grocery),
+      body: GroceryList(),
       floatingActionButton: _addNewGrocery(context),
     );
   }

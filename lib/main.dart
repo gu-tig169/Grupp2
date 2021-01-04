@@ -7,13 +7,12 @@ import 'grocerySearch.dart';
 import 'groceryList.dart';
 
 void main() {
-//var state = MyState();
+  var state = MyState();
 
-  runApp(
-    /*ChangeNotifierProvider(
-    create: (context) => state,*/
-    MyApp(),
-  );
+  runApp(ChangeNotifierProvider(
+    create: (context) => state,
+    child: MyApp(),
+  ));
 }
 
 //test
