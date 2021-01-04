@@ -6,12 +6,12 @@ import 'models/model.dart';
 import 'models/recipeModel.dart';
 
 const API_URL = 'https://api.spoonacular.com';
-const API_KEY = 'cc4af75efb474606b40290cd87c0048f';
+const API_KEY = '498df339ae85443d9cef018fa131d06f';
 
 class API {
   static Future<List<Recipe>> getRecipes(String query) async {
     var response = await http.get(API_URL +
-        '/recipes/complexSearch?query=$query&number=20&intructionsRequired=true&apiKey=$API_KEY');
+        '/recipes/complexSearch?query=$query&number=20&instructionsRequired=true&apiKey=$API_KEY');
     String bodyString = response.body;
     print(response.body);
     var json = jsonDecode(bodyString);
@@ -41,7 +41,7 @@ class API {
 
   static Future<List<Instruction>> getInstructions(int id) async {
     var url =
-        'https://api.spoonacular.com/recipes/$id/analyzedInstructions?apiKey=$API_KEY';
+        'https://api.spoonacular.com/recipes/$id/analyzedInstructions?stepBreakdown=true&apiKey=$API_KEY';
     var response = await http.get(url);
     String bodyString = response.body;
     print(bodyString);

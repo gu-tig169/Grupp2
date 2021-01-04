@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:recipe/API.dart';
 import 'package:recipe/circularProcessIndicator.dart';
 import 'package:recipe/main.dart';
-import 'groceryList.dart';
+import 'package:recipe/models/model.dart';
 import 'models/recipeModel.dart';
 
 class RecipeView extends StatefulWidget {
@@ -15,12 +16,12 @@ class RecipeView extends StatefulWidget {
 }
 
 class _RecipeViewState extends State<RecipeView> {
-  var recipeInfo;
+  var recipeInformation;
 
   void _getRecipeInformation(Recipe recipe) async {
     var information = await API.getRecipeInformation(recipe);
     setState(() {
-      recipeInfo = information;
+      recipeInformation = information;
     });
   }
 
@@ -30,46 +31,47 @@ class _RecipeViewState extends State<RecipeView> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFFFFFFF),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF9AB39F),
-        actions: <Widget>[
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(
-                  context, MaterialPageRoute(builder: (context) => MainView()));
-            },
-            child: Icon(Icons.home),
-          ),
-        ],
-      ),
-      body: recipeInfo == null
-          ? Container(child: CircularProgressIndicatorApp())
-          : SingleChildScrollView(
-              child: Column(children: <Widget>[
-                _recipeImage(),
-                // _recipeTitle(),
-                Container(
-                  height: 30,
-                ),
-                _ingredientsLabel(),
-                Container(
-                  height: 10,
-                ),
-                _ingredientList(),
-                Container(
-                  height: 30,
-                ),
-                _instructionsLabel(),
-                Container(
-                  height: 10,
-                ),
-                _instructionList(),
-              ]),
-            ),
-      floatingActionButton: _addToList(context),
-    );
+    return StatefulBuilder(
+        builder: (context, setState) => Scaffold(
+              backgroundColor: const Color(0xFFFFFFFF),
+              appBar: AppBar(
+                backgroundColor: const Color(0xFF9AB39F),
+                actions: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(right: 20),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MainView()));
+                      },
+                      child: Icon(Icons.home, size: 30),
+                    ),
+                  )
+                ],
+              ),
+              body: recipeInformation == null
+                  ? Container(child: CircularProgressIndicatorApp())
+                  : SingleChildScrollView(
+                      child: Column(children: <Widget>[
+                        _recipeImage(),
+                        // _recipeTitle(),
+                        _ingredientsLabel(),
+                        Container(
+                          height: 10,
+                        ),
+                        //  _groupedList(),
+                        _ingredientList(),
+                        _instructionsLabel(),
+                        Container(
+                          height: 10,
+                        ),
+                        _instructionList(),
+                      ]),
+                    ),
+              floatingActionButton: _addToList(context),
+            ));
   }
 
   Widget _addToList(context) {
@@ -77,11 +79,10 @@ class _RecipeViewState extends State<RecipeView> {
         child: Icon(Icons.add_shopping_cart, size: 30),
         backgroundColor: Colors.orange.withOpacity(0.5),
         onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      GroceryList(recipeInformation: recipeInfo)));
+          var state = Provider.of<MyState>(context, listen: false);
+          state.addGrocery(recipeInformation.ingredient.name);
+          Navigator.pop(context);
+          //GroceryList()));
         });
   }
 
@@ -92,17 +93,17 @@ class _RecipeViewState extends State<RecipeView> {
           decoration: BoxDecoration(
               image: DecorationImage(
             fit: BoxFit.cover,
-            image: NetworkImage((recipeInfo.recipe.image)),
+            image: NetworkImage((recipeInformation.recipe.image)),
           )),
           alignment: Alignment.bottomLeft,
           child: Container(
               height: 100,
               width: 500,
-              color: Colors.black.withOpacity(0.6),
+              color: const Color(0xFF9AB39F).withOpacity(0.7),
               child: Center(
                   child: Padding(
                       padding: EdgeInsets.only(left: 15),
-                      child: Text(recipeInfo.recipe.title,
+                      child: Text(recipeInformation.recipe.title,
                           style: TextStyle(
                             fontSize: 25,
                             color: Colors.white,
@@ -111,7 +112,7 @@ class _RecipeViewState extends State<RecipeView> {
   }
 
   Widget _ingredientList() {
-    var ingredients = recipeInfo.ingredient;
+    var ingredients = recipeInformation.ingredient;
     return Padding(
         padding: EdgeInsets.all(15),
         child: Container(
@@ -121,15 +122,20 @@ class _RecipeViewState extends State<RecipeView> {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: ingredients.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                      title: Text(
-                    ingredients[index].ingredient,
-                  ));
+                  return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                            padding:
+                                EdgeInsets.only(left: 15, top: 10, right: 100),
+                            child: Text(ingredients[index].ingredient,
+                                style: TextStyle(fontSize: 18)))
+                      ]);
                 })));
   }
 
   Widget _instructionList() {
-    var instructions = recipeInfo.instructions;
+    var instructions = recipeInformation.instructions;
     return Padding(
         padding: EdgeInsets.all(15),
         child: Container(
@@ -139,39 +145,79 @@ class _RecipeViewState extends State<RecipeView> {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: instructions.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                      title: Text(
-                    instructions[index].step,
-                    style: TextStyle(fontSize: 18),
-                  ));
+                  return Padding(
+                      padding: EdgeInsets.all(15),
+                      child: RichText(
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: "STEP ",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            TextSpan(
+                                text: instructions[index].number.toString(),
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            TextSpan(
+                              text: ".  ",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            TextSpan(
+                              text: instructions[index].step,
+                              style: TextStyle(fontSize: 18),
+                            )
+                          ],
+                        ),
+                      ));
                 })));
-  }
-
-  Widget _ingredientsLabel() {
-    return Padding(
-        padding: EdgeInsets.only(left: 30),
-        child: Container(
-          alignment: Alignment.bottomLeft,
-          child: Text(
-            'Ingredients',
-            style: TextStyle(
-                fontSize: 22,
-                color: Colors.black,
-                fontWeight: (FontWeight.bold)),
-          ),
-        ));
   }
 }
 
+Widget _ingredientsLabel() {
+  return Container(
+    height: 70,
+    color: const Color(0xFF9AB39F),
+    alignment: Alignment.center,
+    child: Padding(
+        padding: EdgeInsets.only(left: 20),
+        child: Row(
+          children: [
+            Icon(Icons.list_alt_rounded, size: 30, color: Colors.white),
+            Text(
+              '  INGREDIENTS',
+              style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                  fontWeight: (FontWeight.bold)),
+            )
+          ],
+        )),
+  );
+}
+
 Widget _instructionsLabel() {
-  return Padding(
-      padding: EdgeInsets.only(left: 30),
-      child: Container(
-        alignment: Alignment.bottomLeft,
-        child: Text(
-          'Preparation',
-          style: TextStyle(
-              fontSize: 22, color: Colors.black, fontWeight: (FontWeight.bold)),
-        ),
-      ));
+  return Container(
+    height: 70,
+    color: const Color(0xFF9AB39F),
+    alignment: Alignment.center,
+    child: Padding(
+        padding: EdgeInsets.only(left: 20),
+        child: Row(
+          children: [
+            Icon(Icons.restaurant_menu, size: 30, color: Colors.white),
+            Text(
+              '  INSTRUCTIONS',
+              style: TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                  fontWeight: (FontWeight.bold)),
+            )
+          ],
+        )),
+  );
 }
