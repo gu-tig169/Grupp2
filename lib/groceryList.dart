@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -5,6 +6,20 @@ import 'package:recipe/circularProcessIndicator.dart';
 import 'package:recipe/models/model.dart';
 import 'grocerySearch.dart';
 import 'main.dart';
+import 'models/ingredientsModel.dart';
+
+var state = MyState();
+
+class MyState extends ChangeNotifier {
+  List<Ingredient> _shoppingList = [];
+
+  void removeGrocery(int index) {
+    _shoppingList.removeAt(index);
+    notifyListeners();
+  }
+
+  List<Ingredient> get list => _shoppingList;
+}
 
 class GroceryList extends StatelessWidget {
   final RecipeInformation recipeInformation;
@@ -13,7 +28,8 @@ class GroceryList extends StatelessWidget {
   GroceryList({this.recipeInformation, this.grocery});
 
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ChangeNotifierProvider( create: (context) => MyState(), builder: (context, child) =>
+    Scaffold(
       appBar: AppBar(actions: <Widget>[
         //PopupMenuButton(),
         IconButton(
@@ -28,7 +44,7 @@ class GroceryList extends StatelessWidget {
           ? Container(child: CircularProgressIndicatorApp())
           : _groceryList(context),
       floatingActionButton: _addGrocery(context),
-    );
+    ));
   }
 
   List<GroceryList> setFilter(list, filterList) {
@@ -43,14 +59,14 @@ class GroceryList extends StatelessWidget {
   Widget _groceryList(context) {
     var ingredients = recipeInformation.ingredient;
 
-    var allIngredients = [
-      ...recipeInformation.ingredient,
-      ...grocery.ingredient
-    ];
+   // var allIngredients = [
+     // ...recipeInformation.ingredient,
+      //...grocery.ingredient
+    //];
 
     return Consumer<MyState>(
         builder: (context, state, child) => ListView.builder(
-            itemCount: allIngredients.length,
+            itemCount: ingredients.length,
             itemBuilder: (context, index) {
               return Container(
                   decoration: BoxDecoration(
@@ -61,7 +77,7 @@ class GroceryList extends StatelessWidget {
                       child: Padding(
                           padding: EdgeInsets.all(10.0),
                           child: ListTile(
-                              title: Text(allIngredients[index].name,
+                              title: Text(ingredients[index].name,
                                   style: TextStyle(
                                     fontSize: 20,
                                   )),
@@ -69,15 +85,17 @@ class GroceryList extends StatelessWidget {
                                 value: false,
                                 onChanged: (bool value) {},
                               ),
-                              trailing: IconButton(
+                              trailing: Consumer <MyState> (builder: (context, state, child) => 
+                               IconButton(
                                 icon: Icon(Icons.delete),
                                 onPressed: () {
-                                  Provider.of<MyState>(context, listen: false)
-                                      .removeGrocery(index);
+                                  
+                                  var state = Provider.of<MyState>(context, listen: false);
+                                      state.removeGrocery(index);
                                   //(list[index].ingredient);
                                 },
                                 //list[index].ingredient
-                              )))));
+                              ))))));
             }));
   }
 
