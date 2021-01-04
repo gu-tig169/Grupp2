@@ -10,12 +10,3 @@ class RecipeInformation {
   List<Instruction> instructions;
   RecipeInformation({this.ingredient, this.instructions, this.recipe});
 }
-class MyState extends ChangeNotifier {
-  List<Ingredient> _list = [];
-  List <Ingredient> get list => _list;
-
-void removeGrocery(int index) {
-  _list.removeAt(index);
-  notifyListeners();
-}
-}
