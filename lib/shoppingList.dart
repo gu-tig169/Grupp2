@@ -5,6 +5,10 @@ import 'package:recipe/models/ingredientsModel.dart';
 import 'package:recipe/models/model.dart';
 
 class ShoppingList extends StatelessWidget {
+final List<Ingredient> shoppingList;
+
+ShoppingList(this.shoppingList);
+
   Widget build(BuildContext context) {
     return Consumer<MyState>(
         builder: (context, state, child) => ListView.builder(
@@ -15,22 +19,29 @@ class ShoppingList extends StatelessWidget {
   }
 
   Widget _groceryItem(context, Ingredient ingredient, index) {
-    return ListTile(
+    return Card(
+      child: CheckboxListTile(
+        controlAffinity: ListTileControlAffinity.leading,
         title: Text(ingredient.name,
             style: TextStyle(
               fontSize: 20,
               color: Colors.black,
+              decoration: (ingredient.done
+              ? TextDecoration.lineThrough
+              : TextDecoration.none),
             )),
-        leading: Checkbox(
-            value: false,
+      
+            value: ingredient.done,
             onChanged: (bool newValue) {
               var state = Provider.of<MyState>(context, listen: false);
               state.checkGrocery(ingredient, newValue);
-            }),
-        trailing: IconButton(
+            },
+
+        secondary: IconButton(
             icon: Icon(Icons.delete),
             onPressed: () {
               Provider.of<MyState>(context, listen: false).removeGrocery(index);
-            }));
+            })));
+            }
   }
-}
+
