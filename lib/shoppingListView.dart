@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe/groceryList.dart';
 import 'package:recipe/grocerySearch.dart';
 import 'package:recipe/main.dart';
+import 'package:recipe/shoppingList.dart';
 
-class GroceryListView extends StatelessWidget {
+class ShoppingListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -20,12 +20,12 @@ class GroceryListView extends StatelessWidget {
                 }),
           ]),
       // backgroundColor: const Color(0xFFFFFFFF),
-      body: GroceryList(),
+      body: ShoppingList(),
       floatingActionButton: _addNewGrocery(context),
     );
   }
 
-  List<GroceryList> setFilter(list, filterList) {
+  List<ShoppingList> setFilter(list, filterList) {
     if (filterList == 'Done') {
       return list.where((item) => item.done == true).toList();
     } else if (filterList == 'Undone') {

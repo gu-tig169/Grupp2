@@ -6,12 +6,12 @@ import 'models/model.dart';
 import 'models/recipeModel.dart';
 
 const API_URL = 'https://api.spoonacular.com';
-const API_KEY = '498df339ae85443d9cef018fa131d06f';
+const API_KEY = '127912785fb741e5b0671607c2660e08';
 
 class API {
   static Future<List<Recipe>> getRecipes(String query) async {
     var response = await http.get(API_URL +
-        '/recipes/complexSearch?query=$query&number=20&instructionsRequired=true&apiKey=$API_KEY');
+        '/recipes/complexSearch?query=$query&number=20&instructionsRequired=true&addRecipeInformation=true&apiKey=$API_KEY');
     String bodyString = response.body;
     print(response.body);
     var json = jsonDecode(bodyString);
@@ -28,7 +28,7 @@ class API {
 
   static Future<List<Ingredient>> getIngredients(int id) async {
     var url =
-        'https://api.spoonacular.com/recipes/$id/information?apiKey=$API_KEY';
+        'https://api.spoonacular.com/recipes/$id/information?includeNutrition=true&apiKey=$API_KEY';
     var response = await http.get(url);
     String bodyString = response.body;
     print(response.body);
@@ -56,7 +56,7 @@ class API {
     var ingredient = await getIngredients(recipe.id);
     var instructions = await getInstructions(recipe.id);
     return RecipeInformation(
-        ingredient: ingredient, instructions: instructions, recipe: recipe);
+        ingredients: ingredient, instructions: instructions, recipe: recipe);
   }
 
   static Future<List<Ingredient>> getGrocery(String query) async {
@@ -74,6 +74,6 @@ class API {
 
   static Future getGroceries(String query) async {
     var groceries = await getGrocery(query);
-    return RecipeInformation(ingredient: groceries);
+    return RecipeInformation(ingredients: groceries);
   }
 }
