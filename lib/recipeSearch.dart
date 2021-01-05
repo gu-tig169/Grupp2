@@ -35,7 +35,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
       backgroundColor: const Color(0xFFFFFFFF),
       appBar: AppBar(
           backgroundColor: const Color(0xFF9AB39F),
-          title: Text('Search recipies', style: TextStyle(fontSize: 20)),
+          title: Text('Search for recipies', style: TextStyle(fontSize: 20)),
           bottom: PreferredSize(
               preferredSize: Size.fromHeight(48.0),
               child: Row(
@@ -103,6 +103,8 @@ class _RecipeSearchState extends State<RecipeSearch> {
                             height: 300,
                             decoration: new BoxDecoration(color: Colors.white),
                             child: Image.network(recipes[index].image,
+                                color: Colors.grey[500].withOpacity(0.6),
+                                colorBlendMode: BlendMode.modulate,
                                 fit: BoxFit.cover)),
                         Positioned(
                             top: 15,
@@ -129,13 +131,13 @@ class _RecipeSearchState extends State<RecipeSearch> {
                                       )),
                                 ]))),
                         Positioned(
-                            bottom: 0,
+                            bottom: 100,
                             child: Container(
                                 height: 80,
                                 width: 420,
                                 decoration: BoxDecoration(
                                     color: const Color(0xFF9AB39F)
-                                        .withOpacity(0.9)),
+                                        .withOpacity(0.1)),
                                 alignment: Alignment.center,
                                 child: Padding(
                                     padding: EdgeInsets.only(left: 15),
@@ -144,6 +146,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
                                       style: TextStyle(
                                         fontSize: 24,
                                         color: Colors.white,
+                                        fontWeight: FontWeight.bold
                                       ),
                                     ))))
                       ])))),
