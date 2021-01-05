@@ -6,22 +6,32 @@ import 'recipeModel.dart';
 
 class RecipeInformation {
   Recipe recipe;
-  List<Ingredient> ingredient;
+  List<Ingredient> ingredients;
   List<Instruction> instructions;
-  RecipeInformation({this.ingredient, this.instructions, this.recipe});
+  RecipeInformation({this.ingredients, this.instructions, this.recipe});
 }
 
 class MyState extends ChangeNotifier {
   List<Ingredient> _shoppingList = [];
-  List<Ingredient> get list => _shoppingList;
+  List<Ingredient> get shoppingList => _shoppingList;
 
-  void addGrocery(Ingredient name) {
-    _shoppingList.add(name);
+  void addGrocery(Ingredient ingredient) {
+    _shoppingList.add(ingredient);
+    notifyListeners();
+  }
+
+  void addGroceries(List<Ingredient> ingredient) {
+    _shoppingList.addAll(ingredient);
     notifyListeners();
   }
 
   void removeGrocery(int index) {
     _shoppingList.removeAt(index);
+    notifyListeners();
+  }
+
+  void checkGrocery(Ingredient ingredient, bool done) {
+    ingredient.done = done;
     notifyListeners();
   }
 }

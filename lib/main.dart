@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe/models/model.dart';
 import 'package:recipe/recipeSearch.dart';
+import 'package:recipe/shoppingListView.dart';
 import 'grocerySearch.dart';
-import 'groceryList.dart';
 
 void main() {
   var state = MyState();
@@ -92,7 +92,7 @@ class MainView extends StatelessWidget {
           color: Colors.white.withOpacity(0.8),
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => GroceryList()));
+                MaterialPageRoute(builder: (context) => ShoppingListView()));
           },
           child: Text('See grocery list',
               style: TextStyle(

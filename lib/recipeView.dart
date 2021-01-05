@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe/API.dart';
@@ -57,6 +56,7 @@ class _RecipeViewState extends State<RecipeView> {
                       child: Column(children: <Widget>[
                         _recipeImage(),
                         // _recipeTitle(),
+                        _servings(),
                         _ingredientsLabel(),
                         Container(
                           height: 10,
@@ -80,10 +80,34 @@ class _RecipeViewState extends State<RecipeView> {
         backgroundColor: Colors.orange.withOpacity(0.5),
         onPressed: () {
           var state = Provider.of<MyState>(context, listen: false);
-          state.addGrocery(recipeInformation.ingredient.name);
-          Navigator.pop(context);
+          state.addGroceries(recipeInformation.ingredients);
           //GroceryList()));
         });
+  }
+
+  Widget _servings() {
+    return Container(
+        width: 430,
+        height: 30,
+        decoration: BoxDecoration(color: const Color(0xFF9AB39F)),
+        child: Padding(
+            padding: EdgeInsets.all(5),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Icon(Icons.restaurant, size: 18, color: Colors.white),
+              Text(
+                  (' ') +
+                      (recipeInformation.recipe.servings.toString()) +
+                      (' Servings '),
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
+              Icon(Icons.timer_sharp, size: 22, color: Colors.white),
+              Text((recipeInformation.recipe.readyInMinutes.toString()),
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
+              Text('min',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ))
+            ])));
   }
 
   Widget _recipeImage() {
@@ -94,27 +118,29 @@ class _RecipeViewState extends State<RecipeView> {
               image: DecorationImage(
             fit: BoxFit.cover,
             image: NetworkImage((recipeInformation.recipe.image)),
-          )),
-          alignment: Alignment.bottomLeft,
+          ))),
+      Positioned(
+          bottom: 0,
           child: Container(
-              height: 100,
-              width: 500,
-              color: const Color(0xFF9AB39F).withOpacity(0.7),
+              height: 90,
+              width: 430,
+              color: const Color(0xFF9AB39F).withOpacity(0.8),
               child: Center(
                   child: Padding(
                       padding: EdgeInsets.only(left: 15),
-                      child: Text(recipeInformation.recipe.title,
-                          style: TextStyle(
-                            fontSize: 25,
-                            color: Colors.white,
-                          ))))))
+                      child: Container(
+                          child: Text(recipeInformation.recipe.title,
+                              style: TextStyle(
+                                fontSize: 24,
+                                color: Colors.white,
+                              )))))))
     ]);
   }
 
   Widget _ingredientList() {
-    var ingredients = recipeInformation.ingredient;
+    var ingredients = recipeInformation.ingredients;
     return Padding(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.only(left: 15),
         child: Container(
             child: ListView.builder(
                 primary: false,

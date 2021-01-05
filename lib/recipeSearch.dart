@@ -94,28 +94,59 @@ class _RecipeSearchState extends State<RecipeSearch> {
           return GestureDetector(
               child: Padding(
                   padding: EdgeInsets.only(top: 20.0),
-                  child: Card(
-                      child:
-                          Stack(alignment: Alignment.center, children: <Widget>[
-                    Container(
-                        height: 250,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage((recipes[index].image)),
-                        )),
-                        alignment: Alignment.bottomLeft,
-                        child: Container(
-                            height: 80,
+                  child: Container(
+                      width: 100,
+                      child: Card(
+                          child: Stack(children: <Widget>[
+                        Container(
                             width: 500,
-                            color: Colors.white.withOpacity(0.8),
-                            child: Center(
-                                child: Text(recipes[index].title,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                    )))))
-                  ]))),
+                            height: 300,
+                            decoration: new BoxDecoration(color: Colors.white),
+                            child: Image.network(recipes[index].image,
+                                fit: BoxFit.cover)),
+                        Positioned(
+                            top: 15,
+                            right: 0,
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(12.0),
+                                      bottomLeft: Radius.circular(15.0)),
+                                  color: Colors.grey[800].withOpacity(0.8),
+                                ),
+                                padding: EdgeInsets.all(15),
+                                child: Row(children: [
+                                  Icon(Icons.timer_sharp,
+                                      size: 26, color: Colors.white),
+                                  Text(
+                                      (recipes[index]
+                                              .readyInMinutes
+                                              .toString()) +
+                                          ('min'),
+                                      style: TextStyle(
+                                        fontSize: 22,
+                                        color: Colors.white,
+                                      )),
+                                ]))),
+                        Positioned(
+                            bottom: 0,
+                            child: Container(
+                                height: 80,
+                                width: 420,
+                                decoration: BoxDecoration(
+                                    color: const Color(0xFF9AB39F)
+                                        .withOpacity(0.9)),
+                                alignment: Alignment.center,
+                                child: Padding(
+                                    padding: EdgeInsets.only(left: 15),
+                                    child: Text(
+                                      recipes[index].title,
+                                      style: TextStyle(
+                                        fontSize: 24,
+                                        color: Colors.white,
+                                      ),
+                                    ))))
+                      ])))),
               onTap: () {
                 Navigator.push(
                     context,
