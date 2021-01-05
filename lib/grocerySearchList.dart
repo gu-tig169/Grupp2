@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe/models/model.dart';
+import 'buildPopUpDialog.dart';
+
 
 class GrocerySearchList extends StatelessWidget {
   final RecipeInformation grocery;
@@ -33,8 +35,15 @@ class GrocerySearchList extends StatelessWidget {
                                   var state = Provider.of<MyState>(context,
                                       listen: false);
                                   state.addGrocery(grocery.ingredients[index]);
+                                  showDialog(context: context,
+          builder: (BuildContext context) => 
+          BuildPopupDialog(),
+          );
                                 }),
                           )))));
         });
   }
 }
+    
+
+

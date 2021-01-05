@@ -22,6 +22,7 @@ class ShoppingListView extends StatelessWidget {
       // backgroundColor: const Color(0xFFFFFFFF),
       body: ShoppingList(),
       floatingActionButton: _addNewGrocery(context),
+      
     );
   }
 
