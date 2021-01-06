@@ -56,13 +56,11 @@ class _RecipeViewState extends State<RecipeView> {
                   : SingleChildScrollView(
                       child: Column(children: <Widget>[
                         _recipeImage(),
-                        // _recipeTitle(),
                         _servings(),
                         _ingredientsLabel(),
                         Container(
                           height: 10,
                         ),
-                        //  _groupedList(),
                         _ingredientList(),
                         _instructionsLabel(),
                         Container(
@@ -97,7 +95,8 @@ class _RecipeViewState extends State<RecipeView> {
     return Container(
         width: 430,
         height: 30,
-        decoration: BoxDecoration(color: const Color(0xFF9AB39F)),
+        decoration:
+            BoxDecoration(color: const Color(0xFF9AB39F).withOpacity(0.6)),
         child: Padding(
             padding: EdgeInsets.all(5),
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -132,7 +131,7 @@ class _RecipeViewState extends State<RecipeView> {
           child: Container(
               height: 90,
               width: 430,
-              color: const Color(0xFF9AB39F).withOpacity(0.8),
+              color: const Color(0xFF9AB39F).withOpacity(0.5),
               child: Center(
                   child: Padding(
                       padding: EdgeInsets.only(left: 15),
