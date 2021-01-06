@@ -5,6 +5,7 @@ import 'package:recipe/models/model.dart';
 import 'package:recipe/recipeSearch.dart';
 import 'package:recipe/shoppingListView.dart';
 import 'grocerySearch.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   var state = MyState();
@@ -20,6 +21,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.light().copyWith(
+        textTheme: GoogleFonts.latoTextTheme(
+          Theme.of(context).textTheme,
+        )
+      ),
+    //  theme: ThemeData(fontFamily: 'OpenSands'),
       debugShowCheckedModeBanner: false,
       home: MainView(),
     );

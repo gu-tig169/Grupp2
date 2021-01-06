@@ -15,7 +15,8 @@ class ShoppingListView extends StatelessWidget {
           backgroundColor: const Color(0xFF9AB39F),
           title: Text('Shopping list'),
           actions: [
-          PopupMenuButton(
+            _popupMenu(context),
+         /* PopupMenuButton(
                  onSelected: (value) {
 
                   Provider.of<MyState>(context, listen: false)
@@ -25,7 +26,7 @@ class ShoppingListView extends StatelessWidget {
                       PopupMenuItem(child: Text('All'), value: 'All'),
                       PopupMenuItem(child: Text('Done'), value: 'Done'),
                       PopupMenuItem(child: Text('Undone'), value: 'Undone'),
-                    ]),
+                    ]),*/
                 ],
                 ),
           
@@ -36,6 +37,9 @@ class ShoppingListView extends StatelessWidget {
       ),
       
      // ShoppingList(),
+
+     // floatingActionButton: _addNewGrocery(context),
+
       floatingActionButton: _addNewGrocery(context),
       
     );
@@ -59,7 +63,20 @@ class ShoppingListView extends StatelessWidget {
               MaterialPageRoute(builder: (context) => GrocerySearch()));
         });
   }
+final List<String> filterBy = ['All', 'Done', 'Undone'];
 
+Widget _popupMenu(context) {
+  return PopupMenuButton<String>(
+    onSelected: (value) {
+       Provider.of<MyState>(context, listen: false).setFilterList(value);
+      },
+      itemBuilder: (BuildContext context) {
+        return filterBy.map((filterBy) =>
+          PopupMenuItem(value: filterBy, child: Text(filterBy))).toList();
+      },
+  
+  );
+}
  
   }
 
