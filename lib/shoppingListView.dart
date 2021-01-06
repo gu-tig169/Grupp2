@@ -37,7 +37,11 @@ class ShoppingListView extends StatelessWidget {
       ),
       
      // ShoppingList(),
+
      // floatingActionButton: _addNewGrocery(context),
+
+      floatingActionButton: _addNewGrocery(context),
+      
     );
   }
 
