@@ -14,6 +14,7 @@ class ShoppingListView extends StatelessWidget {
         backgroundColor: const Color(0xFF9AB39F),
         title: Text('Shopping list'),
         actions: [
+          _addNewGrocery(context),
           PopupMenuButton(
               onSelected: (value) {
                 Provider.of<MyState>(context, listen: false)
@@ -29,7 +30,7 @@ class ShoppingListView extends StatelessWidget {
       body: Consumer<MyState>(
           builder: (context, state, child) =>
               ShoppingList(filterList(state.shoppingList, state.filterBy))),
-      floatingActionButton: _addNewGrocery(context),
+      //floatingActionButton: _addNewGrocery(context),
     );
   }
 
@@ -43,9 +44,11 @@ class ShoppingListView extends StatelessWidget {
   }
 
   Widget _addNewGrocery(context) {
-    return FloatingActionButton(
-        child: Icon(Icons.add, size: 56),
-        backgroundColor: Colors.grey,
+    return IconButton(
+        icon: Icon(
+          Icons.add,
+          size: 18,
+        ),
         onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => GrocerySearch()));

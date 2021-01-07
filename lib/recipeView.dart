@@ -40,7 +40,7 @@ class _RecipeViewState extends State<RecipeView> {
                     padding: EdgeInsets.only(right: 20),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pop(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MainView()));
@@ -77,10 +77,21 @@ class _RecipeViewState extends State<RecipeView> {
   Widget _addToList(context) {
     return FloatingActionButton(
         child: Icon(Icons.add_shopping_cart, size: 30),
-        backgroundColor: Colors.orange.withOpacity(0.8),
+        backgroundColor: Colors.orange.withOpacity(0.5),
         onPressed: () {
           var state = Provider.of<MyState>(context, listen: false);
           state.addGroceries(recipeInformation.ingredients);
+          showDialog(
+              context: context,
+              builder: (context) {
+                Future.delayed(Duration(seconds: 2), () {
+                  Navigator.of(context).pop(true);
+                });
+                return new AlertDialog(
+                    title: const Text(
+                        'The ingredients has been added to your shoppinglist'),
+                    backgroundColor: Colors.white.withOpacity(0.8));
+              });
         });
   }
 
