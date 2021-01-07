@@ -14,6 +14,16 @@ class ShoppingListView extends StatelessWidget {
       appBar: AppBar(
           backgroundColor: const Color(0xFF9AB39F),
           title: Text('Shopping list'),
+          actions: <Widget>[
+            //PopupMenuButton(),
+            IconButton(
+                icon: Icon(Icons.home, color: Colors.white),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MainView()));
+                }),
+          ]),
+
           actions: [
             _popupMenu(context),
          /* PopupMenuButton(
@@ -30,6 +40,7 @@ class ShoppingListView extends StatelessWidget {
                 ],
                 ),
           
+
       // backgroundColor: const Color(0xFFFFFFFF),
       body: Consumer<MyState>(
         builder: (context, state, child) =>
