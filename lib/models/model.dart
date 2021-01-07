@@ -15,6 +15,9 @@ class MyState extends ChangeNotifier {
   List<Ingredient> _shoppingList = [];
   List<Ingredient> get shoppingList => _shoppingList;
 
+  String _filterBy = 'All';
+  String get filterBy => _filterBy;
+
   void addGrocery(Ingredient ingredient) {
     _shoppingList.add(ingredient);
     notifyListeners();
@@ -32,6 +35,11 @@ class MyState extends ChangeNotifier {
 
   void checkGrocery(Ingredient ingredient, bool done) {
     ingredient.done = done;
+    notifyListeners();
+  }
+
+  void setFilterList(String filterBy) {
+    this._filterBy = filterBy;
     notifyListeners();
   }
 }
