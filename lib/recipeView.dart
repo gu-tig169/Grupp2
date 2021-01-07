@@ -41,7 +41,7 @@ class _RecipeViewState extends State<RecipeView> {
                     padding: EdgeInsets.only(right: 20),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pop(
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => MainView()));

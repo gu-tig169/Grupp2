@@ -144,10 +144,9 @@ class _RecipeSearchState extends State<RecipeSearch> {
                                     child: Text(
                                       recipes[index].title,
                                       style: TextStyle(
-                                        fontSize: 24,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold
-                                      ),
+                                          fontSize: 24,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
                                     ))))
                       ])))),
               onTap: () {

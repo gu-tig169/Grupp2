@@ -80,6 +80,8 @@ class _GrocerySearchState extends State<GrocerySearch> {
         icon: Icon(Icons.search, color: Colors.white),
         onPressed: () {
           _getGroceries(_controller.text);
+
         });
   }
 }
+
