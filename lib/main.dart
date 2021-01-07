@@ -15,7 +15,7 @@ void main() {
   ));
 }
 
-//test
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -29,12 +29,9 @@ class MyApp extends StatelessWidget {
 class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(
-        //  backgroundColor: (Colors.grey
-        //  ),
+        
 
         body: Container(
-            //Lagt till nedan (fram till child) för att kunna använda bakgrundsbild
             constraints: BoxConstraints.expand(),
             decoration: BoxDecoration(
                 image: DecorationImage(
@@ -45,6 +42,16 @@ class MainView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                Container(
+                  child: Text(
+                    'TITEL',
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  padding: EdgeInsets.only(bottom: 120),
+                ),
                 _searchRecipiesButton(context),
                 Container(
                   height: 30,
@@ -73,7 +80,7 @@ class MainView extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => RecipeSearch()));
           },
-          child: Text('Search recipies',
+          child: Text('Search for recipies',
               style: TextStyle(
                 fontSize: 20,
               )),
@@ -94,7 +101,7 @@ class MainView extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ShoppingListView()));
           },
-          child: Text('See grocery list',
+          child: Text('View shopping list',
               style: TextStyle(
                 fontSize: 20,
               )),
@@ -115,7 +122,7 @@ class MainView extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => GrocerySearch()));
           },
-          child: Text('Search groceries',
+          child: Text('Search for groceries',
               style: TextStyle(
                 fontSize: 20,
               )),

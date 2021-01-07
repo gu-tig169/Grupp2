@@ -9,7 +9,7 @@ class ShoppingListView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: const Color(0xFF9AB39F),
-          title: Text('Grocery list'),
+          title: Text('Shopping list'),
           actions: <Widget>[
             //PopupMenuButton(),
             IconButton(
