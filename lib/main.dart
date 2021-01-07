@@ -8,6 +8,7 @@ import 'grocerySearch.dart';
 
 void main() {
   var state = MyState();
+  // state.getShoppingList();
 
   runApp(ChangeNotifierProvider(
     create: (context) => state,
@@ -20,7 +21,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: MainView(),
     );
   }
