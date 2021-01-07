@@ -35,7 +35,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
       backgroundColor: const Color(0xFFFFFFFF),
       appBar: AppBar(
           backgroundColor: const Color(0xFF9AB39F),
-          title: Text('Search for recipies', style: TextStyle(fontSize: 20)),
+          title: Text('Search recipies', style: TextStyle(fontSize: 20)),
           bottom: PreferredSize(
               preferredSize: Size.fromHeight(48.0),
               child: Row(
@@ -100,22 +100,19 @@ class _RecipeSearchState extends State<RecipeSearch> {
                           child: Stack(children: <Widget>[
                         Container(
                             width: 500,
-                            height: 300,
+                            height: 280,
                             decoration: new BoxDecoration(color: Colors.white),
                             child: Image.network(recipes[index].image,
-                                color: Colors.grey[500].withOpacity(0.6),
+                                color: Colors.grey[500].withOpacity(1.0),
                                 colorBlendMode: BlendMode.modulate,
                                 fit: BoxFit.cover)),
                         Positioned(
-                            top: 15,
-                            right: 0,
+                            bottom: 40,
+                            left: 140,
                             child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(12.0),
-                                      bottomLeft: Radius.circular(15.0)),
-                                  color: Colors.grey[800].withOpacity(0.8),
-                                ),
+                                width: 200,
+                                height: 80,
+                                alignment: Alignment.center,
                                 padding: EdgeInsets.all(15),
                                 child: Row(children: [
                                   Icon(Icons.timer_sharp,
@@ -134,17 +131,16 @@ class _RecipeSearchState extends State<RecipeSearch> {
                             bottom: 100,
                             child: Container(
                                 height: 80,
-                                width: 420,
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFF9AB39F)
-                                        .withOpacity(0.1)),
+                                width: 400,
                                 alignment: Alignment.center,
                                 child: Padding(
-                                    padding: EdgeInsets.only(left: 15),
+                                    padding:
+                                        EdgeInsets.only(left: 30, right: 30),
                                     child: Text(
                                       recipes[index].title,
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontSize: 24,
+                                          fontSize: 26,
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
                                     ))))
