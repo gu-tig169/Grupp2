@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe/API.dart';
+import 'package:recipe/buildPopUpDialog.dart';
 import 'package:recipe/circularProcessIndicator.dart';
 import 'package:recipe/main.dart';
 import 'package:recipe/models/model.dart';
-import 'grocerySearchList.dart';
 import 'models/recipeModel.dart';
 
 class RecipeView extends StatefulWidget {
@@ -80,16 +80,14 @@ class _RecipeViewState extends State<RecipeView> {
         onPressed: () {
           var state = Provider.of<MyState>(context, listen: false);
           state.addGroceries(recipeInformation.ingredients);
-          showDialog(context: context,
-          builder: (BuildContext context) => 
-          BuildPopupDialog(),
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => BuildPopupDialog(),
           );
-          
+
           //GroceryList()));
         });
   }
-        
-  
 
   Widget _servings() {
     return Container(

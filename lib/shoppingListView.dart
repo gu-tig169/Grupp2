@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe/grocerySearch.dart';
-import 'package:recipe/main.dart';
 import 'package:recipe/shoppingList.dart';
 
 import 'models/ingredientsModel.dart';
@@ -12,47 +11,25 @@ class ShoppingListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: const Color(0xFF9AB39F),
-          title: Text('Shopping list'),
-          actions: <Widget>[
-            //PopupMenuButton(),
-            IconButton(
-                icon: Icon(Icons.home, color: Colors.white),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MainView()));
-                }),
-          ]),
-
-          actions: [
-            _popupMenu(context),
-         /* PopupMenuButton(
-                 onSelected: (value) {
-
-                  Provider.of<MyState>(context, listen: false)
-                      .setFilterList(value);
-                },
-                itemBuilder: (context) => [
-                      PopupMenuItem(child: Text('All'), value: 'All'),
-                      PopupMenuItem(child: Text('Done'), value: 'Done'),
-                      PopupMenuItem(child: Text('Undone'), value: 'Undone'),
-                    ]),*/
-                ],
-                ),
-          
-
-      // backgroundColor: const Color(0xFFFFFFFF),
-      body: Consumer<MyState>(
-        builder: (context, state, child) =>
-        ShoppingList(filterList(state.shoppingList, state.filterBy)),
+        backgroundColor: const Color(0xFF9AB39F),
+        title: Text('Shopping list'),
+        actions: [
+          PopupMenuButton(
+              onSelected: (value) {
+                Provider.of<MyState>(context, listen: false)
+                    .setFilterList(value);
+              },
+              itemBuilder: (context) => [
+                    PopupMenuItem(child: Text('All'), value: 'All'),
+                    PopupMenuItem(child: Text('Done'), value: 'Done'),
+                    PopupMenuItem(child: Text('Undone'), value: 'Undone'),
+                  ]),
+        ],
       ),
-      
-     // ShoppingList(),
-
-     // floatingActionButton: _addNewGrocery(context),
-
+      body: Consumer<MyState>(
+          builder: (context, state, child) =>
+              ShoppingList(filterList(state.shoppingList, state.filterBy))),
       floatingActionButton: _addNewGrocery(context),
-      
     );
   }
 
@@ -74,20 +51,4 @@ class ShoppingListView extends StatelessWidget {
               MaterialPageRoute(builder: (context) => GrocerySearch()));
         });
   }
-final List<String> filterBy = ['All', 'Done', 'Undone'];
-
-Widget _popupMenu(context) {
-  return PopupMenuButton<String>(
-    onSelected: (value) {
-       Provider.of<MyState>(context, listen: false).setFilterList(value);
-      },
-      itemBuilder: (BuildContext context) {
-        return filterBy.map((filterBy) =>
-          PopupMenuItem(value: filterBy, child: Text(filterBy))).toList();
-      },
-  
-  );
 }
- 
-  }
-
