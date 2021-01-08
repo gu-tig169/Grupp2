@@ -53,8 +53,9 @@ class MyState extends ChangeNotifier {
   }
 
   void decrement(Ingredient ingredient, int counter) {
-    print('minus');
-    _counter = ingredient.counter--;
+    if (ingredient.counter > 0) {
+      _counter = ingredient.counter--;
+    }
     notifyListeners();
   }
 }

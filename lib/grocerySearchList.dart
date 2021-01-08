@@ -41,11 +41,12 @@ class GrocerySearchList extends StatelessWidget {
                                               () {
                                             Navigator.of(context).pop(true);
                                           });
-                                          return new AlertDialog(
-                                              title: const Text(
-                                                  'This grocery has been added to your shoppinglist'),
-                                              backgroundColor: Colors.white
-                                                  .withOpacity(0.8));
+                                          return Center(
+                                              child: new AlertDialog(
+                                                  title: const Text(
+                                                      'This grocery has been added to your shoppinglist'),
+                                                  backgroundColor: Colors.white
+                                                      .withOpacity(0.8)));
                                         });
                                   }))))));
         });

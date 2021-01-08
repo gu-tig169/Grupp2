@@ -28,9 +28,12 @@ class ShoppingListView extends StatelessWidget {
         ],
       ),
       body: Consumer<MyState>(
-          builder: (context, state, child) =>
-              ShoppingList(filterList(state.shoppingList, state.filterBy))),
-      //floatingActionButton: _addNewGrocery(context),
+          builder: (context, state, child) => ShoppingList == null
+              ? Container(
+                  child: Container(
+                      child: Text('Shopping list is empty',
+                          style: TextStyle(color: Colors.black))))
+              : ShoppingList(filterList(state.shoppingList, state.filterBy))),
     );
   }
 

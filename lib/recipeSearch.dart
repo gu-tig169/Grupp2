@@ -28,6 +28,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
   initState() {
     super.initState();
     _getRecipes("");
+    _controller.clear();
   }
 
   Widget build(BuildContext context) {
@@ -35,13 +36,15 @@ class _RecipeSearchState extends State<RecipeSearch> {
       backgroundColor: const Color(0xFFFFFFFF),
       appBar: AppBar(
           backgroundColor: const Color(0xFF9AB39F),
-          title: Text('Search recipies', style: TextStyle(fontSize: 20)),
+          title: Text(
+            'Search recipies',
+            style: TextStyle(fontSize: 20),
+          ),
           bottom: PreferredSize(
               preferredSize: Size.fromHeight(48.0),
               child: Row(
                 children: <Widget>[
                   _searchField(),
-                  _searchButton(),
                 ],
               ))),
       body: recipes == null
@@ -53,12 +56,13 @@ class _RecipeSearchState extends State<RecipeSearch> {
   Widget _searchField() {
     return Expanded(
       child: Container(
-        margin: const EdgeInsets.only(left: 12.0, bottom: 8.0),
+        margin: const EdgeInsets.only(left: 12.0, bottom: 8.0, right: 12),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(24.0),
         ),
         child: TextFormField(
+          style: TextStyle(fontSize: 14),
           onChanged: (String text) {
             _getRecipes(_controller.text);
           },
@@ -66,7 +70,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
           decoration: InputDecoration(
             contentPadding: EdgeInsets.all(15.0),
             border: InputBorder.none,
-            hintText: 'Search recipies',
+            hintText: 'Enter recipe or groceries to be included',
             suffixIcon: IconButton(
                 icon: Icon(Icons.clear),
                 onPressed: () {
@@ -75,15 +79,6 @@ class _RecipeSearchState extends State<RecipeSearch> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _searchButton() {
-    return IconButton(
-      icon: Icon(Icons.search, color: Colors.black),
-      onPressed: () {
-        _getRecipes(_controller.text);
-      },
     );
   }
 
@@ -140,7 +135,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
                                       recipes[index].title,
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                          fontSize: 26,
+                                          fontSize: 22,
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
                                     ))))

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
@@ -20,12 +18,6 @@ class ShoppingList extends StatelessWidget {
         groupSeparatorBuilder: (String aisle) => GroupSeparator(aisle: aisle),
         itemBuilder: (context, ingredient) =>
             _groceryItem(context, ingredient));
-
-    /*ListView.builder(
-      itemBuilder: (context, index) =>
-          _groceryItem(context, widget.shoppingList[index], index),
-      itemCount: widget.shoppingList.length,
-    );*/
   }
 
   Widget _groceryItem(context, Ingredient ingredient) {
@@ -38,18 +30,19 @@ class ShoppingList extends StatelessWidget {
           state.checkGrocery(ingredient, newValue);
         },
       ),
-      Text(ingredient.name,
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.black,
-            decoration: (ingredient.done
-                ? TextDecoration.lineThrough
-                : TextDecoration.none),
-          )),
-      Spacer(),
+      Expanded(
+          child: Text(ingredient.name,
+              overflow: TextOverflow.clip,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                decoration: (ingredient.done
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none),
+              ))),
       _counterIndicator(context, ingredient),
       IconButton(
-          icon: Icon(Icons.cancel, color: Colors.grey[300]),
+          icon: Icon(Icons.cancel, color: Colors.grey[400]),
           onPressed: () {
             Provider.of<MyState>(context, listen: false)
                 .removeGrocery(ingredient);
@@ -59,8 +52,8 @@ class ShoppingList extends StatelessWidget {
 
   Widget _counterIndicator(context, ingredient) {
     return Row(children: <Widget>[
-      Consumer<MyState>(
-          builder: (context, state, child) => IconButton(
+      ingredient.counter != 1
+          ? new IconButton(
               onPressed: () {
                 Provider.of<MyState>(context, listen: false)
                     .decrement(ingredient, ingredient.counter);
@@ -68,23 +61,25 @@ class ShoppingList extends StatelessWidget {
               icon: Icon(
                 Icons.remove,
                 color: Colors.black,
-                size: 18,
-              ))),
+                size: 16.0,
+              ))
+          : Container(),
       Consumer<MyState>(
-          builder: (context, state, child) => Text(
+          builder: (context, state, child) => new Text(
                 ('${ingredient.counter}'),
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 16),
               )),
-      new IconButton(
-          onPressed: () {
-            Provider.of<MyState>(context, listen: false)
-                .increment(ingredient, ingredient.counter);
-          },
-          icon: Icon(
-            Icons.add,
-            color: Colors.black,
-            size: 18.0,
-          ))
+      Consumer<MyState>(
+          builder: (context, state, child) => IconButton(
+              onPressed: () {
+                Provider.of<MyState>(context, listen: false)
+                    .increment(ingredient, ingredient.counter);
+              },
+              icon: Icon(
+                Icons.add,
+                color: Colors.black,
+                size: 16,
+              ))),
     ]);
   }
 }
@@ -96,11 +91,13 @@ class GroupSeparator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: const Color(0xFF89a18d),
       child: Padding(
         padding: EdgeInsets.only(left: 16, top: 8, bottom: 8),
         child: Text(
           "${this.aisle}",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
     );
