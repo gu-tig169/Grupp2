@@ -47,13 +47,13 @@ class MyState extends ChangeNotifier {
   }
 
   void increment(Ingredient ingredient, int counter) {
-    print('plus');
+    
     _counter = ingredient.counter++;
     notifyListeners();
   }
 
   void decrement(Ingredient ingredient, int counter) {
-    print('minus');
+    if (ingredient.counter !=1)
     _counter = ingredient.counter--;
     notifyListeners();
   }

@@ -20,12 +20,6 @@ class ShoppingList extends StatelessWidget {
         groupSeparatorBuilder: (String aisle) => GroupSeparator(aisle: aisle),
         itemBuilder: (context, ingredient) =>
             _groceryItem(context, ingredient));
-
-    /*ListView.builder(
-      itemBuilder: (context, index) =>
-          _groceryItem(context, widget.shoppingList[index], index),
-      itemCount: widget.shoppingList.length,
-    );*/
   }
 
   Widget _groceryItem(context, Ingredient ingredient) {
@@ -59,8 +53,8 @@ class ShoppingList extends StatelessWidget {
 
   Widget _counterIndicator(context, ingredient) {
     return Row(children: <Widget>[
-      Consumer<MyState>(
-          builder: (context, state, child) => IconButton(
+      ingredient.counter != 1
+          ? new IconButton(
               onPressed: () {
                 Provider.of<MyState>(context, listen: false)
                     .decrement(ingredient, ingredient.counter);
@@ -68,26 +62,30 @@ class ShoppingList extends StatelessWidget {
               icon: Icon(
                 Icons.remove,
                 color: Colors.black,
-                size: 18,
-              ))),
+                size: 18.0,
+              ))
+          : Container(),
       Consumer<MyState>(
-          builder: (context, state, child) => Text(
+          builder: (context, state, child) => new Text(
                 ('${ingredient.counter}'),
                 style: TextStyle(fontSize: 18),
               )),
-      new IconButton(
-          onPressed: () {
-            Provider.of<MyState>(context, listen: false)
-                .increment(ingredient, ingredient.counter);
-          },
-          icon: Icon(
-            Icons.add,
-            color: Colors.black,
-            size: 18.0,
-          ))
+      Consumer<MyState>(
+          builder: (context, state, child) => IconButton(
+              onPressed: () {
+                Provider.of<MyState>(context, listen: false)
+                    .increment(ingredient, ingredient.counter);
+              },
+              icon: Icon(
+                Icons.add,
+                color: Colors.black,
+                size: 18,
+              ))),
     ]);
   }
 }
+  
+
 
 class GroupSeparator extends StatelessWidget {
   final String aisle;
