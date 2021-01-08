@@ -41,12 +41,10 @@ class MainView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  child: Text(
-                    'TITEL',
-                    style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                  child: Icon(
+                    Icons.menu_book_outlined,
+                    color: Colors.white.withOpacity(0.7),
+                    size: 200,
                   ),
                   padding: EdgeInsets.only(bottom: 120),
                 ),

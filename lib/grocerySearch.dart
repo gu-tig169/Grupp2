@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe/circularProcessIndicator.dart';
 import 'package:recipe/grocerySearchList.dart';
 import 'package:recipe/models/model.dart';
 import 'API.dart';
@@ -28,6 +27,7 @@ class _GrocerySearchState extends State<GrocerySearch> {
   initState() {
     super.initState();
     _getGroceries("");
+    _controller.clear();
   }
 
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _GrocerySearchState extends State<GrocerySearch> {
                   _searchButton(),
                 ]))),
         body: grocery == null
-            ? Container(child: CircularProgressIndicatorApp())
+            ? Container()
             : GrocerySearchList(
                 grocery: grocery,
               ));
