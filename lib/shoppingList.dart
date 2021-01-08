@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
@@ -20,12 +18,6 @@ class ShoppingList extends StatelessWidget {
         groupSeparatorBuilder: (String aisle) => GroupSeparator(aisle: aisle),
         itemBuilder: (context, ingredient) =>
             _groceryItem(context, ingredient));
-
-    /*ListView.builder(
-      itemBuilder: (context, index) =>
-          _groceryItem(context, widget.shoppingList[index], index),
-      itemCount: widget.shoppingList.length,
-    );*/
   }
 
   Widget _groceryItem(context, Ingredient ingredient) {
