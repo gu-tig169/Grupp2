@@ -33,7 +33,7 @@ class MainView extends StatelessWidget {
             constraints: BoxConstraints.expand(),
             decoration: BoxDecoration(
                 image: DecorationImage(
-              image: AssetImage('assets/testbild.jpg'),
+              image: AssetImage('assets/backgroundpicture.jpg'),
               fit: BoxFit.cover,
             )),
             child: Column(
@@ -43,10 +43,10 @@ class MainView extends StatelessWidget {
                 Container(
                   child: Icon(
                     Icons.menu_book_outlined,
-                    color: Colors.white.withOpacity(0.7),
+                    color: Colors.red.withOpacity(0.6),
                     size: 200,
                   ),
-                  padding: EdgeInsets.only(bottom: 120),
+                  padding: EdgeInsets.only(bottom: 50),
                 ),
                 _searchRecipiesButton(context),
                 Container(
@@ -70,15 +70,16 @@ class MainView extends StatelessWidget {
         child: FlatButton(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(18.0),
-              side: BorderSide(color: Colors.white)),
-          color: Colors.white.withOpacity(0.8),
+              ),
+          color: const Color(0xFF9AB39F).withOpacity(0.7),
           onPressed: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => RecipeSearch()));
           },
-          child: Text('Search for recipies',
+          child: Text('SEARCH FOR RECIPES',
               style: TextStyle(
                 fontSize: 20,
+                color: Colors.white,
               )),
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
         ));
@@ -91,15 +92,16 @@ class MainView extends StatelessWidget {
         child: FlatButton(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(18.0),
-              side: BorderSide(color: Colors.white)),
-          color: Colors.white.withOpacity(0.8),
+             ),
+          color: const Color(0xFF9AB39F).withOpacity(0.7),
           onPressed: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => ShoppingListView()));
           },
-          child: Text('View shopping list',
+          child: Text('VIEW SHOPPING LIST',
               style: TextStyle(
                 fontSize: 20,
+                color: Colors.white,
               )),
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
         ));
@@ -112,15 +114,16 @@ class MainView extends StatelessWidget {
         child: FlatButton(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(18.0),
-              side: BorderSide(color: Colors.white)),
-          color: Colors.white.withOpacity(0.8),
+          ),
+          color: const Color(0xFF9AB39F).withOpacity(0.7),
           onPressed: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => GrocerySearch()));
           },
-          child: Text('Search for groceries',
+          child: Text('SEARCH GROCERIES',
               style: TextStyle(
                 fontSize: 20,
+                color: Colors.white,
               )),
           padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
         ));
