@@ -77,6 +77,7 @@ class _RecipeViewState extends State<RecipeView> {
   Widget _addToList(context) {
     return FloatingActionButton(
         child: Icon(Icons.add_shopping_cart, size: 30),
+        tooltip: 'Add ingredients to shopping list',
         backgroundColor: Colors.orange.withOpacity(0.5),
         onPressed: () {
           var state = Provider.of<MyState>(context, listen: false);
@@ -105,7 +106,7 @@ class _RecipeViewState extends State<RecipeView> {
             image: NetworkImage((recipeInformation.recipe.image)),
           ))),
       Positioned(
-          bottom: -10,
+          bottom: 0,
           child: Container(
               // height: 130,
               width: 430,

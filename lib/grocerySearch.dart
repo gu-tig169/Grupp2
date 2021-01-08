@@ -32,22 +32,21 @@ class _GrocerySearchState extends State<GrocerySearch> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFFFF),
-      appBar: AppBar(
-          backgroundColor: const Color(0xFF9AB39F),
-          title: Text('Search groceries'),
-          bottom: PreferredSize(
-              preferredSize: Size.fromHeight(48.0),
-              child: Row(children: <Widget>[
-                _searchField(),
-                _searchButton(),
-              ]))),
-      body: grocery == null
-          ? Container(child: CircularProgressIndicatorApp())
-          : GrocerySearchList(
-              grocery: grocery,
-            ),
-    );
+        backgroundColor: const Color(0xFFFFFFFF),
+        appBar: AppBar(
+            backgroundColor: const Color(0xFF9AB39F),
+            title: Text('Search groceries'),
+            bottom: PreferredSize(
+                preferredSize: Size.fromHeight(48.0),
+                child: Row(children: <Widget>[
+                  _searchField(),
+                  _searchButton(),
+                ]))),
+        body: grocery == null
+            ? Container(child: CircularProgressIndicatorApp())
+            : GrocerySearchList(
+                grocery: grocery,
+              ));
   }
 
   Widget _searchField() {
@@ -80,8 +79,6 @@ class _GrocerySearchState extends State<GrocerySearch> {
         icon: Icon(Icons.search, color: Colors.white),
         onPressed: () {
           _getGroceries(_controller.text);
-
         });
   }
 }
-

@@ -18,8 +18,8 @@ class MyState extends ChangeNotifier {
   String _filterBy = 'All';
   String get filterBy => _filterBy;
 
-  //int _counter = 1;
-  //int get counter => _counter;
+  int _counter = 1;
+  int get counter => _counter;
 
   void addGrocery(Ingredient ingredient) {
     _shoppingList.add(ingredient);
@@ -47,24 +47,14 @@ class MyState extends ChangeNotifier {
   }
 
   void increment(Ingredient ingredient, int counter) {
-    ingredient.counter = counter + 1;
+    print('plus');
+    _counter = ingredient.counter++;
     notifyListeners();
   }
 
   void decrement(Ingredient ingredient, int counter) {
-    ingredient.counter = counter - 1;
+    print('minus');
+    _counter = ingredient.counter--;
     notifyListeners();
   }
-
-  /*Future getShoppingList() async {
-    List<Ingredient> shoppingList = await SecondApi.getShoppingList();
-    _shoppingList = shoppingList;
-    notifyListeners();
-  }
-
-  void addItem(Ingredient ingredient) async {
-    await SecondApi.addGrocery(ingredient);
-    await getShoppingList();
-    notifyListeners();
-  }*/
 }

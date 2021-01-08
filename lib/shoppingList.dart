@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
@@ -5,24 +7,19 @@ import 'package:provider/provider.dart';
 import 'package:recipe/models/ingredientsModel.dart';
 import 'package:recipe/models/model.dart';
 
-class ShoppingList extends StatefulWidget {
+class ShoppingList extends StatelessWidget {
   final List<Ingredient> shoppingList;
   ShoppingList(this.shoppingList);
 
-  @override
-  _ShoppingListState createState() => _ShoppingListState();
-}
-
-class _ShoppingListState extends State<ShoppingList> {
   Widget build(BuildContext context) {
     return GroupedListView<dynamic, String>(
-        elements: widget.shoppingList,
+        elements: shoppingList,
         groupBy: (ingredient) {
           return ingredient.aisle;
         },
         groupSeparatorBuilder: (String aisle) => GroupSeparator(aisle: aisle),
-        itemBuilder: (context, index) =>
-            _groceryItem(context, widget.shoppingList[index], index));
+        itemBuilder: (context, ingredient) =>
+            _groceryItem(context, ingredient));
 
     /*ListView.builder(
       itemBuilder: (context, index) =>
@@ -31,7 +28,7 @@ class _ShoppingListState extends State<ShoppingList> {
     );*/
   }
 
-  Widget _groceryItem(context, Ingredient ingredient, index) {
+  Widget _groceryItem(context, Ingredient ingredient) {
     return Card(
         child: Row(children: [
       Checkbox(
@@ -50,7 +47,7 @@ class _ShoppingListState extends State<ShoppingList> {
                 : TextDecoration.none),
           )),
       Spacer(),
-      _counterIndicator(context, index, ingredient),
+      _counterIndicator(context, ingredient),
       IconButton(
           icon: Icon(Icons.cancel, color: Colors.grey[300]),
           onPressed: () {
@@ -60,8 +57,7 @@ class _ShoppingListState extends State<ShoppingList> {
     ]));
   }
 
-  Widget _counterIndicator(context, index, ingredient) {
-    var counter = ingredient.counter;
+  Widget _counterIndicator(context, ingredient) {
     return Row(children: <Widget>[
       Consumer<MyState>(
           builder: (context, state, child) => IconButton(
@@ -76,7 +72,7 @@ class _ShoppingListState extends State<ShoppingList> {
               ))),
       Consumer<MyState>(
           builder: (context, state, child) => Text(
-                ('$counter'),
+                ('${ingredient.counter}'),
                 style: TextStyle(fontSize: 18),
               )),
       new IconButton(
