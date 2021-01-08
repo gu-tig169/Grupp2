@@ -1,5 +1,5 @@
 class Ingredient {
-  String ingredient, name, aisle, image;
+  String ingredient, name, aisle;
   bool done;
   int id;
   int counter = 1;
@@ -10,18 +10,15 @@ class Ingredient {
     this.aisle,
     this.done = false,
     this.id,
-    this.image,
   });
 
   static Map<String, dynamic> toJson(Ingredient ingredients) {
     return {
       'original': ingredients.ingredient,
       'name': ingredients.name,
-      'title': ingredients.name,
       'aisle': ingredients.aisle,
       'done': ingredients.done,
       'id': ingredients.id,
-      'image': ingredients.image,
     };
   }
 

@@ -4,6 +4,7 @@ import 'package:recipe/API.dart';
 import 'package:recipe/circularProcessIndicator.dart';
 import 'package:recipe/main.dart';
 import 'package:recipe/models/model.dart';
+import 'package:recipe/shoppingListView.dart';
 import 'models/recipeModel.dart';
 
 class RecipeView extends StatefulWidget {
@@ -36,18 +37,26 @@ class _RecipeViewState extends State<RecipeView> {
               appBar: AppBar(
                 backgroundColor: const Color(0xFF9AB39F),
                 actions: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(right: 20),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MainView()));
-                      },
-                      child: Icon(Icons.home, size: 30),
-                    ),
-                  )
+                  Row(children: [
+                    IconButton(
+                        icon: Icon(Icons.list, size: 30),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ShoppingListView()));
+                        }),
+                    Padding(
+                        padding: EdgeInsets.only(right: 20),
+                        child: IconButton(
+                            icon: Icon(Icons.home, size: 30),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MainView()));
+                            })),
+                  ])
                 ],
               ),
               body: recipeInformation == null
