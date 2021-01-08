@@ -45,10 +45,8 @@ class ShoppingListView extends StatelessWidget {
 
   Widget _addNewGrocery(context) {
     return IconButton(
-        icon: Icon(
-          Icons.add,
-          size: 18,
-        ),
+        icon: Icon(Icons.add),
+        tooltip: 'Add grocery',
         onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => GrocerySearch()));

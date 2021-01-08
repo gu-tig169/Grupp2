@@ -1,15 +1,16 @@
 class Ingredient {
   String ingredient, name, aisle;
   bool done;
-  int id, counter;
+  int id;
+  int counter = 1;
 
-  Ingredient(
-      {this.ingredient,
-      this.name,
-      this.aisle,
-      this.done = false,
-      this.id,
-      this.counter});
+  Ingredient({
+    this.ingredient,
+    this.name,
+    this.aisle,
+    this.done = false,
+    this.id,
+  });
 
   static Map<String, dynamic> toJson(Ingredient ingredients) {
     return {

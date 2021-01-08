@@ -5,7 +5,6 @@ import 'package:recipe/models/model.dart';
 import 'package:recipe/recipeSearch.dart';
 import 'package:recipe/shoppingListView.dart';
 import 'grocerySearch.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   var state = MyState();
@@ -17,14 +16,11 @@ void main() {
   ));
 }
 
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       debugShowCheckedModeBanner: false,
-
       home: MainView(),
     );
   }
@@ -33,8 +29,6 @@ class MyApp extends StatelessWidget {
 class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
-        
-
         body: Container(
             constraints: BoxConstraints.expand(),
             decoration: BoxDecoration(
