@@ -26,8 +26,8 @@ class MyState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addGroceries(List<Ingredient> ingredient) {
-    _shoppingList.addAll(ingredient);
+  void addGroceries(List<Ingredient> ingredients) {
+    _shoppingList.addAll(ingredients);
     notifyListeners();
   }
 
@@ -52,11 +52,7 @@ class MyState extends ChangeNotifier {
   }
 
   void decrement(Ingredient ingredient, int counter) {
-    if (ingredient.counter > 0) {
-      _counter = ingredient.counter--;
-    }
-
-
+    _counter = ingredient.counter--;
     notifyListeners();
   }
 }

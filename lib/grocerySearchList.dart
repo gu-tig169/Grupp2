@@ -37,14 +37,14 @@ class GrocerySearchList extends StatelessWidget {
                                     showDialog(
                                         context: context,
                                         builder: (context) {
-                                          Future.delayed(Duration(seconds: 2),
+                                          Future.delayed(Duration(seconds: 1),
                                               () {
                                             Navigator.of(context).pop(true);
                                           });
                                           return Center(
                                               child: new AlertDialog(
                                                   title: const Text(
-                                                      'This grocery has been added to your shoppinglist'),
+                                                      'Added to shoppinglist'),
                                                   backgroundColor: Colors.white
                                                       .withOpacity(0.8)));
                                         });

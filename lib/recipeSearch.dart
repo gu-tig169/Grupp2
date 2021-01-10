@@ -8,8 +8,8 @@ import 'models/recipeModel.dart';
 TextEditingController _controller = TextEditingController();
 
 class RecipeSearch extends StatefulWidget {
-  final List<Recipe> list;
-  RecipeSearch({this.list});
+  final List<Recipe> recipeList;
+  RecipeSearch({this.recipeList});
 
   @override
   _RecipeSearchState createState() => _RecipeSearchState();
@@ -19,9 +19,9 @@ class _RecipeSearchState extends State<RecipeSearch> {
   var recipes;
 
   _getRecipes(String query) async {
-    var recipe = await API.getRecipes(query);
+    var recipeResults = await API.getRecipes(query);
     setState(() {
-      recipes = recipe;
+      recipes = recipeResults;
     });
   }
 
@@ -75,6 +75,7 @@ class _RecipeSearchState extends State<RecipeSearch> {
                 icon: Icon(Icons.clear),
                 onPressed: () {
                   _controller.clear();
+                  _getRecipes("");
                 }),
           ),
         ),
