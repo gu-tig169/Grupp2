@@ -29,10 +29,8 @@ class ShoppingListView extends StatelessWidget {
         ],
       ),
       body: Consumer<MyState>(
-
           builder: (context, state, child) =>
               ShoppingList(filterList(state.shoppingList, state.filterBy))),
-
     );
   }
 

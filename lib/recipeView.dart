@@ -19,9 +19,9 @@ class _RecipeViewState extends State<RecipeView> {
   var recipeInformation;
 
   void _getRecipeInformation(Recipe recipe) async {
-    var information = await API.getRecipeInformation(recipe);
+    var result = await API.getRecipeInformation(recipe);
     setState(() {
-      recipeInformation = information;
+      recipeInformation = result;
     });
   }
 
@@ -64,13 +64,10 @@ class _RecipeViewState extends State<RecipeView> {
                   : SingleChildScrollView(
                       child: Column(children: <Widget>[
                         _recipeImage(),
-                        // _recipeTitle(),
-                        // _servings(),
                         _ingredientsLabel(),
                         Container(
                           height: 10,
                         ),
-                        //  _groupedList(),
                         _ingredientList(),
                         _instructionsLabel(),
                         Container(
@@ -117,7 +114,6 @@ class _RecipeViewState extends State<RecipeView> {
       Positioned(
           bottom: 0,
           child: Container(
-              // height: 130,
               width: 430,
               decoration: BoxDecoration(
                   color: Colors.white,

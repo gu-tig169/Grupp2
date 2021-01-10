@@ -62,7 +62,6 @@ class ShoppingList extends StatelessWidget {
                 Icons.remove,
                 color: Colors.black,
                 size: 16.0,
-
               ))
           : Container(),
       Consumer<MyState>(
@@ -79,15 +78,11 @@ class ShoppingList extends StatelessWidget {
               icon: Icon(
                 Icons.add,
                 color: Colors.black,
-
                 size: 16,
-
               ))),
     ]);
   }
 }
-  
-
 
 class GroupSeparator extends StatelessWidget {
   final String aisle;

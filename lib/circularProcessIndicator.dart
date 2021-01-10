@@ -26,7 +26,7 @@ class CircularProgressIndicatorAppState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   CircularProgressIndicator(
-                    backgroundColor: Colors.lightGreen,
+                    backgroundColor: Colors.green,
                     valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
                 ],

@@ -40,7 +40,6 @@ class _GrocerySearchState extends State<GrocerySearch> {
                 preferredSize: Size.fromHeight(48.0),
                 child: Row(children: <Widget>[
                   _searchField(),
-                  _searchButton(),
                 ]))),
         body: grocery == null
             ? Container()
@@ -72,13 +71,5 @@ class _GrocerySearchState extends State<GrocerySearch> {
                         _controller.clear();
                       },
                     )))));
-  }
-
-  Widget _searchButton() {
-    return IconButton(
-        icon: Icon(Icons.search, color: Colors.white),
-        onPressed: () {
-          _getGroceries(_controller.text);
-        });
   }
 }
