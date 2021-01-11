@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe/models/model.dart';
-import 'package:recipe/recipeSearch.dart';
-import 'package:recipe/shoppingListView.dart';
-import 'grocerySearch.dart';
+import 'package:recipe/views/recipeSearchView.dart';
+import 'package:recipe/Views/shoppingListView.dart';
+import 'Views/grocerySearchView.dart';
 
 void main() {
   var state = MyState();
-  // state.getShoppingList();
 
   runApp(ChangeNotifierProvider(
     create: (context) => state,
@@ -53,12 +52,12 @@ class MainView extends StatelessWidget {
                   height: 30,
                   width: 50,
                 ),
-                _groceryList(context),
+                _viewShoppingListButton(context),
                 Container(
                   height: 30,
                   width: 50,
                 ),
-                _addGroceries(context)
+                _searchGroceriesButton(context)
               ],
             )));
   }
@@ -69,12 +68,12 @@ class MainView extends StatelessWidget {
         width: 300,
         child: FlatButton(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18.0),
-              ),
+            borderRadius: BorderRadius.circular(18.0),
+          ),
           color: const Color(0xFF9AB39F).withOpacity(0.7),
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => RecipeSearch()));
+                MaterialPageRoute(builder: (context) => RecipeSearchView()));
           },
           child: Text('SEARCH FOR RECIPES',
               style: TextStyle(
@@ -85,14 +84,14 @@ class MainView extends StatelessWidget {
         ));
   }
 
-  Widget _groceryList(context) {
+  Widget _viewShoppingListButton(context) {
     return Container(
         height: 70,
         width: 300,
         child: FlatButton(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18.0),
-             ),
+            borderRadius: BorderRadius.circular(18.0),
+          ),
           color: const Color(0xFF9AB39F).withOpacity(0.7),
           onPressed: () {
             Navigator.push(context,
@@ -107,13 +106,13 @@ class MainView extends StatelessWidget {
         ));
   }
 
-  Widget _addGroceries(context) {
+  Widget _searchGroceriesButton(context) {
     return Container(
         height: 70,
         width: 300,
         child: FlatButton(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18.0),
+            borderRadius: BorderRadius.circular(18.0),
           ),
           color: const Color(0xFF9AB39F).withOpacity(0.7),
           onPressed: () {

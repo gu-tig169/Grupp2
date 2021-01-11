@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:recipe/grocerySearch.dart';
+import 'package:recipe/Views/grocerySearchView.dart';
 import 'package:recipe/shoppingList.dart';
-import 'models/ingredientsModel.dart';
-import 'models/model.dart';
+import '../models/ingredientsModel.dart';
+import '../models/model.dart';
 
 class ShoppingListView extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class ShoppingListView extends StatelessWidget {
         actions: [
           _addNewGrocery(context),
           PopupMenuButton(
-              icon: Icon(Icons.list),
+              icon: Icon(Icons.filter_alt_rounded),
               onSelected: (value) {
                 Provider.of<MyState>(context, listen: false)
                     .setFilterList(value);
@@ -44,12 +44,14 @@ class ShoppingListView extends StatelessWidget {
   }
 
   Widget _addNewGrocery(context) {
-    return FlatButton(
-        color: const Color(0xFF9AB39F),
-        child: Text('+Add grocery', style: TextStyle(color: Colors.white)),
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => GrocerySearch()));
-        });
+    return Tooltip(
+        message: 'Add new grocery',
+        child: IconButton(
+          icon: Icon(Icons.add, size: 30),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => GrocerySearch()));
+          },
+        ));
   }
 }

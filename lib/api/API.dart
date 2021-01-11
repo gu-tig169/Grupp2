@@ -1,19 +1,18 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:recipe/models/instructionsModel.dart';
-import 'models/ingredientsModel.dart';
-import 'models/model.dart';
-import 'models/recipeModel.dart';
+import '../models/ingredientsModel.dart';
+import '../models/model.dart';
+import '../models/recipeModel.dart';
 
 const API_URL = 'https://api.spoonacular.com';
-const API_KEY = 'cc4af75efb474606b40290cd87c0048f';
+const API_KEY = '9f389d1d53224f68967710a82f76f600';
 
 class API {
   static Future<List<Recipe>> getRecipes(String query) async {
     var response = await http.get(API_URL +
         '/recipes/complexSearch?query=$query&number=20&instructionsRequired=true&addRecipeInformation=true&apiKey=$API_KEY');
-    String bodyString = response.body;
-    var json = jsonDecode(bodyString);
+    var json = jsonDecode(utf8.decode(response.bodyBytes));
     return json['results']
         .map<Recipe>((data) => Recipe.fromJson(data))
         .toList();
@@ -27,8 +26,7 @@ class API {
   static Future<List<Ingredient>> getIngredients(int id) async {
     var response = await http.get(API_URL +
         '/recipes/$id/information?includeNutrition=true&apiKey=$API_KEY');
-    String bodyString = response.body;
-    var json = jsonDecode(bodyString);
+    var json = jsonDecode(utf8.decode(response.bodyBytes));
     return json['extendedIngredients'].map<Ingredient>((data) {
       return Ingredient.fromJson(data);
     }).toList();
@@ -37,8 +35,7 @@ class API {
   static Future<List<Instruction>> getInstructions(int id) async {
     var response = await http.get(API_URL +
         '/recipes/$id/analyzedInstructions?stepBreakdown=true&apiKey=$API_KEY');
-    String bodyString = response.body;
-    var json = jsonDecode(bodyString);
+    var json = jsonDecode(utf8.decode(response.bodyBytes));
     return json[0]['steps'].map<Instruction>((data) {
       return Instruction.fromJson(data);
     }).toList();

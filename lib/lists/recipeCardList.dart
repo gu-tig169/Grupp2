@@ -1,89 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'API.dart';
-import 'circularProcessIndicator.dart';
-import 'recipeView.dart';
-import 'models/recipeModel.dart';
+import 'package:recipe/Views/recipeView.dart';
+import 'package:recipe/models/recipeModel.dart';
 
-TextEditingController _controller = TextEditingController();
-
-class RecipeSearch extends StatefulWidget {
-  final List<Recipe> recipeList;
-  RecipeSearch({this.recipeList});
-
-  @override
-  _RecipeSearchState createState() => _RecipeSearchState();
-}
-
-class _RecipeSearchState extends State<RecipeSearch> {
-  var recipes;
-
-  _getRecipes(String query) async {
-    var recipeResults = await API.getRecipes(query);
-    setState(() {
-      recipes = recipeResults;
-    });
-  }
-
-  initState() {
-    super.initState();
-    _getRecipes("");
-    _controller.clear();
-  }
+class RecipeCardList extends StatelessWidget {
+  final List<Recipe> recipeCardList;
+  RecipeCardList({this.recipeCardList});
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFFFFFFF),
-      appBar: AppBar(
-          backgroundColor: const Color(0xFF9AB39F),
-          title: Text(
-            'Search recipies',
-            style: TextStyle(fontSize: 20),
-          ),
-          bottom: PreferredSize(
-              preferredSize: Size.fromHeight(48.0),
-              child: Row(
-                children: <Widget>[
-                  _searchField(),
-                ],
-              ))),
-      body: recipes == null
-          ? Container(child: CircularProgressIndicatorApp())
-          : _recipeCard(),
-    );
-  }
+    var recipes = recipeCardList;
 
-  Widget _searchField() {
-    return Expanded(
-      child: Container(
-        margin: const EdgeInsets.only(left: 12.0, bottom: 8.0, right: 12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(24.0),
-        ),
-        child: TextFormField(
-          style: TextStyle(fontSize: 14),
-          onChanged: (String text) {
-            _getRecipes(_controller.text);
-          },
-          controller: _controller,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(15.0),
-            border: InputBorder.none,
-            hintText: 'Enter recipe or groceries to be included',
-            suffixIcon: IconButton(
-                icon: Icon(Icons.clear),
-                onPressed: () {
-                  _controller.clear();
-                  _getRecipes("");
-                }),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _recipeCard() {
     return ListView.builder(
         itemCount: recipes.length,
         itemBuilder: (context, index) {
