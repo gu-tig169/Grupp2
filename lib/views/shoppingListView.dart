@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe/Views/grocerySearchView.dart';
-import 'package:recipe/shoppingList.dart';
+import 'package:recipe/lists/shoppingList.dart';
 import '../models/ingredientsModel.dart';
 import '../models/model.dart';
 

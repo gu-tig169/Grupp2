@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:recipe/API/API.dart';
-import 'package:recipe/models/circularProcessIndicator.dart';
-import 'package:recipe/main.dart';
 import 'package:recipe/models/model.dart';
 import 'package:recipe/Views/shoppingListView.dart';
+import '../circularProcessIndicator.dart';
+import '../main.dart';
 import '../models/recipeModel.dart';
 
 class RecipeView extends StatefulWidget {

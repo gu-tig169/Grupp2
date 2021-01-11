@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe/RecipeCardList.dart';
+import 'package:recipe/circularProcessIndicator.dart';
+import 'package:recipe/lists/recipeCardList.dart';
 import '../API/API.dart';
-import '../models/circularProcessIndicator.dart';
 import '../models/recipeModel.dart';
 
 TextEditingController _controller = TextEditingController();
