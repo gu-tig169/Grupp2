@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:recipe/API.dart';
-import 'package:recipe/circularProcessIndicator.dart';
+import 'package:recipe/API/API.dart';
+import 'package:recipe/models/circularProcessIndicator.dart';
 import 'package:recipe/main.dart';
 import 'package:recipe/models/model.dart';
-import 'package:recipe/shoppingListView.dart';
-import 'models/recipeModel.dart';
+import 'package:recipe/Views/shoppingListView.dart';
+import '../models/recipeModel.dart';
 
 class RecipeView extends StatefulWidget {
   final Recipe recipe;
@@ -39,23 +39,21 @@ class _RecipeViewState extends State<RecipeView> {
                 actions: <Widget>[
                   Row(children: [
                     IconButton(
-                        icon: Icon(Icons.list, size: 30),
+                        icon: Icon(Icons.list_alt, size: 30),
                         onPressed: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => ShoppingListView()));
                         }),
-                    Padding(
-                        padding: EdgeInsets.only(right: 20),
-                        child: IconButton(
-                            icon: Icon(Icons.home, size: 30),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MainView()));
-                            })),
+                    IconButton(
+                        icon: Icon(Icons.home, size: 30),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainView()));
+                        }),
                   ])
                 ],
               ),
@@ -69,6 +67,9 @@ class _RecipeViewState extends State<RecipeView> {
                           height: 10,
                         ),
                         _ingredientList(),
+                        Container(
+                          height: 10,
+                        ),
                         _instructionsLabel(),
                         Container(
                           height: 10,
@@ -96,8 +97,10 @@ class _RecipeViewState extends State<RecipeView> {
                 });
                 return new AlertDialog(
                     title: const Text(
-                        'The ingredients has been added to your shoppinglist'),
-                    backgroundColor: Colors.white.withOpacity(0.8));
+                        'The ingredients has been added to your shoppinglist',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white)),
+                    backgroundColor: Colors.grey[900].withOpacity(0.7));
               });
         });
   }

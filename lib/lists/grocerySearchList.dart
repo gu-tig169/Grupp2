@@ -44,9 +44,14 @@ class GrocerySearchList extends StatelessWidget {
                                           return Center(
                                               child: new AlertDialog(
                                                   title: const Text(
-                                                      'Added to shoppinglist'),
-                                                  backgroundColor: Colors.white
-                                                      .withOpacity(0.8)));
+                                                      'Added to shoppinglist',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.white)),
+                                                  backgroundColor: Colors
+                                                      .grey[900]
+                                                      .withOpacity(0.7)));
                                         });
                                   }))))));
         });

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:recipe/grocerySearchList.dart';
 import 'package:recipe/models/model.dart';
-import 'API.dart';
+import '../API/API.dart';
 
 TextEditingController _controller = TextEditingController();
 
@@ -51,7 +51,7 @@ class _GrocerySearchState extends State<GrocerySearch> {
   Widget _searchField() {
     return Expanded(
         child: Container(
-            margin: const EdgeInsets.only(left: 12.0, bottom: 8.0),
+            margin: const EdgeInsets.only(left: 12.0, bottom: 8.0, right: 12.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(24.0),
