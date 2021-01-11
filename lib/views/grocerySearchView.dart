@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:recipe/grocerySearchList.dart';
+import 'package:recipe/lists/grocerySearchList.dart';
 import 'package:recipe/models/model.dart';
 import '../API/API.dart';
 
